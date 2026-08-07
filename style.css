@@ -288,3 +288,48 @@ display:none;
 .menu i:hover{
     color:#6C63FF;
 }
+@media (max-width:768px){
+
+.navbar{
+    flex-direction:column;
+    gap:15px;
+    padding:15px;
+}
+
+.search-box input{
+    width:100%;
+}
+
+.menu{
+    gap:15px;
+}
+
+.content{
+    width:100%;
+    padding:10px;
+}
+
+.create-post{
+    width:100%;
+    margin:15px 0;
+    flex-wrap:wrap;
+}
+
+.create-post input{
+    width:100%;
+}
+
+.post{
+    width:100%;
+    max-width:100%;
+}
+
+.stories{
+    justify-content:flex-start;
+    padding:10px;
+}
+
+.post-image{
+    height:auto;
+}
+}
