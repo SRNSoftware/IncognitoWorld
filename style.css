@@ -94,12 +94,10 @@ transform:translateY(-2px);
 }
 
 .content{
-    display:grid;
-    grid-template-columns:250px minmax(0,1fr) 250px;
-    gap:25px;
-    width:95%;
-    max-width:1400px;
-    margin:30px auto;
+    display:block;
+    width:100%;
+    margin:15px auto;
+    padding:0 10px;
 }
 
 /* Stories */
@@ -198,17 +196,10 @@ font-size:18px;
 /* ---------- CREATE POST ---------- */
 
 .create-post{
-    width:650px;
+    width:100%;
+    max-width:650px;
     margin:30px auto;
-    background:#1f1f1f;
-    padding:20px;
-    border-radius:20px;
-    display:flex;
-    align-items:center;
-    gap:15px;
-    box-shadow:0 0 15px rgba(0,0,0,.5);
 }
-
 .user-pic{
     width:55px;
     height:55px;
@@ -320,10 +311,12 @@ background:#6C63FF;
     width:100%;
     height:auto;
 }    
-}
+
 .feed{
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
+}    
 }
+
