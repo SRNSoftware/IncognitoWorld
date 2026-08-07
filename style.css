@@ -274,3 +274,13 @@ background:#6C63FF;
     overflow:hidden;
 }
 }
+@media(max-width:768px){
+
+.stories{
+    overflow-x:auto;
+    justify-content:flex-start;
+    padding:10px;
+    max-width:100%;
+}
+
+}
