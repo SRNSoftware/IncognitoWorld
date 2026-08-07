@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IncognitoWorld</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="logo">
+        🌍 <span>IncognitoWorld</span>
+    </div>
+    <div class="search-box">
+        <input type="text" placeholder="Search people, posts, topics...">
+    </div>
+    <div class="menu">
+    <a href="#"><i class="fa-solid fa-house"></i></a>
+    <a href="#"><i class="fa-solid fa-bell"></i></a>
+    <a href="#"><i class="fa-solid fa-message"></i></a>
+    <a href="#"><i class="fa-solid fa-user"></i></a>
+    </div>
+</header>
+
+<main class="content">
+
+<!-- LEFT SIDEBAR -->
+
+<aside class="left-sidebar">
+
+<h2>Menu</h2>
+
+<ul>
+	<li><i class="fa-solid fa-house"></i> Home</li>
+	<li><i class="fa-solid fa-compass"></i> Explore</li>
+	<li><i class="fa-solid fa-message"></i> Messages</li>
+	<li><i class="fa-solid fa-user"></i> Profile</li>
+	<li><i class="fa-solid fa-gear"></i> Settings</li>
+</ul>
+
+</aside>
+
+<section class="feed">
+
+    <!-- Stories -->
+    <div class="stories">
+
+        <div class="story">
+            <img src="https://i.pravatar.cc/80?img=1">
+            <p>You</p>
+        </div>
+
+        <div class="story">
+            <img src="https://i.pravatar.cc/80?img=2">
+            <p>Rahul</p>
+        </div>
+
+        <div class="story">
+            <img src="https://i.pravatar.cc/80?img=3">
+            <p>Priya</p>
+        </div>
+
+        <div class="story">
+            <img src="https://i.pravatar.cc/80?img=4">
+            <p>Amit</p>
+        </div>
+
+        <div class="story">
+            <img src="https://i.pravatar.cc/80?img=5">
+            <p>Riya</p>
+        </div>
+
+    </div>
+
+    <!-- Create Post -->
+<div class="create-post">
+    <img src="https://i.pravatar.cc/100?img=8" class="user-pic">
+    <input type="text" id="postText" placeholder="What's on your mind?">
+    <button id="postBtn">Post</button>
+</div>
+
+<div id="feed">
+<div class="post-container">
+    <!-- Post 1-->
+    <div class="post">
+        <div class="post-header">
+            <img src="https://i.pravatar.cc/100?img=8">
+            <div>
+                <h3>Soumya Nanda</h3>
+                <small>2 minutes ago</small>
+            </div>
+        </div>
+       <img class="post-image" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800">
+        <div class="actions">
+            <button onclick="likePost()">❤️ Like</button>
+            <button>💬 Comment</button>
+            <button>🔄 Share</button>
+        </div>
+        <p class="caption">
+            Welcome to IncognitoWorld 🚀
+            This is my first social media post.
+        </p>
+    </div>
+
+    <!-- Post 2-->
+    <div class="post">
+        <div class="post-header">
+            <img src="https://i.pravatar.cc/100?img=8">
+            <div>
+                <h3>Soumya Nanda</h3>
+                <small>2 minutes ago</small>
+            </div>
+        </div>
+       <img class="post-image" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800">
+        <div class="actions">
+            <button>❤️ Like</button>
+            <button>💬 Comment</button>
+            <button>🔄 Share</button>
+        </div>
+        <p class="caption">
+            Welcome to IncognitoWorld 🚀
+            This is my first social media post.
+        </p>
+    </div>
+</div>
+</div>
+</section>
+
+<!-- RIGHT SIDEBAR -->
+
+<aside class="right-sidebar">
+<h2>Trending</h2>
+<ul>
+	<li>#Technology</li>
+	<li>#Coding</li>
+	<li>#Travel</li>
+	<li>#Sports</li>
+	<li>#Music</li>
+</ul>
+</aside>
+</main>
+<script src="script.js"></script>	
+</body>
+
+</html>
