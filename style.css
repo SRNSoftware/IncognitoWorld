@@ -233,7 +233,7 @@ font-size:18px;
 
 /* SIDEBARS */
 
-.left-sidebar,
+/* .left-sidebar,
 .right-sidebar{
 background:#1f1f1f;
 padding:20px;
@@ -256,7 +256,7 @@ transition:.3s;
 .left-sidebar li:hover,
 .right-sidebar li:hover{
 background:#6C63FF;
-}
+} */
 @media(max-width:768px){
 
 .navbar{
