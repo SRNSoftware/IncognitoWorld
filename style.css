@@ -218,7 +218,7 @@ font-size:18px;
     border-radius:50%;
 }
 
-.create-post input{
+/* .create-post input{
     flex:1;
     padding:12px;
     border:none;
@@ -227,8 +227,19 @@ font-size:18px;
     color:white;
     outline:none;
     min-width:0;
+} */
+.create-post input{
+    flex:1;
+    width:100%;
+    min-width:0;
+    padding:12px;
+    border:none;
+    border-radius:30px;
+    background:#2d2d2d;
+    color:white;
+    outline:none;
+    font-size:16px;
 }
-
 .create-post button{
     padding:12px 25px;
     border:none;
@@ -313,9 +324,19 @@ background:#6C63FF;
     padding:10px;
 }
 
-.create-post,
-.post{
-    width:100%;
+.create-post{
+    display:flex;
+    gap:10px;
+}
+
+.create-post input{
+    flex:1;
+    min-width:0;
+}
+
+.create-post button{
+    flex-shrink:0;
+    padding:12px 16px;
 }
 .post-image{
     width:100%;
