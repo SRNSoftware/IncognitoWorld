@@ -285,3 +285,42 @@ background:#6C63FF;
 }
 
 }
+@media(max-width:768px){
+
+.content{
+    display:block;
+    width:100%;
+    padding:10px;
+}
+
+.left-sidebar,
+.right-sidebar{
+    display:none;
+}
+
+.create-post,
+.post{
+    width:100%;
+    max-width:100%;
+}
+
+.post-image{
+    width:100%;
+    height:auto;
+}
+
+.navbar{
+    flex-wrap:wrap;
+}
+
+.search-box{
+    width:100%;
+    margin:10px 0;
+}
+
+.menu{
+    width:100%;
+    justify-content:space-around;
+}
+
+}
