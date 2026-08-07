@@ -282,12 +282,11 @@ background:#6C63FF;
 }
 
 .content{
-    display:grid;
-    grid-template-columns: minmax(0,250px) minmax(0,1fr) minmax(0,250px);
-    gap:25px;
-    width:95%;
-    max-width:1200px;
-    margin:30px auto;
+    display:block;
+    width:100%;
+    max-width:100%;
+    margin:0;
+    padding:10px;
 }
 
 .left-sidebar,
@@ -296,6 +295,8 @@ background:#6C63FF;
 }
 
 .stories{
+    display:flex;
+    gap:15px;
     overflow-x:auto;
     justify-content:flex-start;
     padding:10px;
