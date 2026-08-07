@@ -249,13 +249,11 @@ border-radius:20px;
 height:fit-content;
 box-shadow:0 0 15px rgba(0,0,0,.5);
 }
-
 .left-sidebar ul,
 .right-sidebar ul{
 list-style:none;
 margin-top:20px;
 }
-
 .left-sidebar li,
 .right-sidebar li{
 padding:15px 10px;
@@ -263,11 +261,16 @@ cursor:pointer;
 border-radius:10px;
 transition:.3s;
 }
-
 .left-sidebar li:hover,
 .right-sidebar li:hover{
-
 background:#6C63FF;
-
 }
+@media(max-width:768px){
 
+.content{
+    display:block;
+    width:100%;
+    padding:10px;
+    overflow:hidden;
+}
+}
