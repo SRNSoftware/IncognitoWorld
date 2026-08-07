@@ -204,6 +204,13 @@ font-size:18px;
     width:100%;
     max-width:650px;
     margin:30px auto;
+    background:#1f1f1f;
+    padding:20px;
+    border-radius:20px;
+    display:flex;
+    align-items:center;
+    gap:15px;
+    box-shadow:0 0 15px rgba(0,0,0,.5);
 }
 .user-pic{
     width:55px;
