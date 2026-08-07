@@ -318,3 +318,16 @@ background:#6C63FF;
 }
 
 }
+* {
+    max-width: 100%;
+}
+
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
