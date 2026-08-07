@@ -15,18 +15,22 @@ body{
 }
 
 .navbar{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    background:#1d1d1d;
-    padding:15px 30px;
     position:sticky;
     top:0;
     z-index:1000;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#1b1b1b;
+    padding:12px 25px;
+    box-shadow:0 2px 15px rgba(0,0,0,.4);
 }
 
 .logo{
-    font-size:26px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:34px;
     font-weight:bold;
     color:#6C63FF;
 }
@@ -36,29 +40,45 @@ body{
 }
 
 .search-box input{
-    width:350px;
-    padding:10px 15px;
+    width:420px;
+    max-width:100%;
+    padding:12px 18px;
     border:none;
     border-radius:30px;
-    outline:none;
-    background:#2d2d2d;
+    background:#2b2b2b;
     color:white;
+    outline:none;
 }
 
 .menu{
     display:flex;
-    gap:25px;
+    gap:28px;
+    font-size:24px;
+}
+
+.menu i{
+    cursor:pointer;
+    transition:.3s;
+}
+
+.menu i:hover{
+    color:#6C63FF;
+    transform:scale(1.15);
 }
 
 .menu a{
     color:white;
     text-decoration:none;
     font-size:24px;
-    transition:.3s;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:all .3s ease;
 }
 
 .menu a:hover{
     color:#6C63FF;
+    transform:scale(1.15);
 }
 
 .content{
@@ -330,6 +350,63 @@ display:none;
 }
 
 .post-image{
+    height:auto;
+}
+}
+@media(max-width:768px){
+
+.navbar{
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:12px;
+    padding:15px;
+}
+
+.logo{
+    font-size:28px;
+}
+
+.search-box{
+    width:100%;
+}
+
+.search-box input{
+    width:100%;
+}
+
+.menu{
+    width:100%;
+    justify-content:space-around;
+}
+
+.content{
+    display:block;
+    padding:10px;
+}
+
+.left-sidebar,
+.right-sidebar{
+    display:none;
+}
+
+.stories{
+    overflow-x:auto;
+    white-space:nowrap;
+    padding-bottom:10px;
+}
+
+.story{
+    display:inline-block;
+}
+
+.create-post,
+.post{
+    width:100%;
+    max-width:100%;
+}
+
+.post-image{
+    width:100%;
     height:auto;
 }
 }
