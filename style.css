@@ -105,14 +105,9 @@ transform:translateY(-2px);
     padding:20px;
 }
 
-/* .feed{
+.feed{
     width:100%;
     max-width:650px;
-} */
-
-.feed{
-    width:clamp(320px, 90vw, 550px);
-    margin:0 auto;
 }
 
 /* Stories */
