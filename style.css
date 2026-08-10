@@ -108,18 +108,20 @@ transform:translateY(-2px);
 
 .feed{
     width:100%;
-    max-width:800px;
+    max-width:700px;
     margin:0 auto;
 }
 
 /* Stories */
 
 .stories{
+    width:100%;
+    max-width:700px;
+    margin:0 auto 20px;
     display:flex;
-    gap:20px;
-    overflow-x:auto;
-    padding:30px;
     justify-content:center;
+    gap:20px;
+    padding:20px;
 }
 
 .story{
@@ -148,12 +150,12 @@ transform:translateY(-2px);
 
 .post{
     width:100%;
-    max-width:550px;
+    max-width:700px;
     background:#1f1f1f;
     border-radius:18px;
     overflow:hidden;
     box-shadow:0 8px 25px rgba(0,0,0,.4);
-    margin-bottom:20px auto;
+    margin:20px auto;
 }
 
 .post-header{
@@ -208,8 +210,8 @@ font-size:18px;
 /* ---------- CREATE POST ---------- */
 
 .create-post{
-    width:92%; 
-    max-width:550px;
+    width:100%;
+    max-width:700px;
     margin:20px auto;
     background:#1f1f1f;
     padding:15px;
