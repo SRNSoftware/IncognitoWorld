@@ -289,7 +289,23 @@ transition:.3s;
 .right-sidebar li:hover{
 background:#6C63FF;
 } */
+
+.feed,
+.post,
+.create-post,
+.stories{
+    max-width:700px;
+    margin:0 auto;
+}
 @media(max-width:768px){
+
+.feed,
+.post,
+.create-post,
+.stories{
+    width:100%;
+    max-width:100%;
+}
 
 .navbar{
     flex-direction:column;
