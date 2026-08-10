@@ -111,8 +111,7 @@ transform:translateY(-2px);
 } */
 
 .feed{
-    width:92%;
-    max-width:550px;
+    width:clamp(320px, 90vw, 550px);
     margin:0 auto;
 }
 
