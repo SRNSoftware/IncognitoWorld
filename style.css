@@ -102,12 +102,16 @@ transform:translateY(-2px);
     display:flex;
     justify-content:center;
     width:100%;
-    padding:20px;
+    padding:20px 15px;
+    box-sizing:border-box;
 }
 
 .feed{
     width:100%;
     max-width:650px;
+    margin:0 auto;
+    padding:0 15px;
+    box-sizing:border-box;
 }
 
 /* Stories */
