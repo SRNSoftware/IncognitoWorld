@@ -1,145 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-<meta charset="UTF-8"> 
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>IncognitoWorld</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-<link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Page</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header class="navbar">
+    <main class="page">
 
-<div class="logo">
-🌍 <span>IncognitoWorld</span>
-</div>
+        <!-- PAGE HEADER -->
+        <header class="page-header">
+            <h1>MY PAGE</h1>
+            <div class="header-line"></div>
+        </header>
 
-<div class="search-box">
-<input type="text" placeholder="Search people, posts, topics...">
-</div>
 
-<div class="menu">
-<a href="#"><i class="fa-solid fa-house"></i></a>
-<a href="#"><i class="fa-solid fa-bell"></i></a>
-<a href="#"><i class="fa-solid fa-message"></i></a>
-<a href="#"><i class="fa-solid fa-user"></i></a>
-</div>
+        <!-- ================= POST 1 ================= -->
 
-</header>
+        <article class="post">
 
-<main class="content">
+            <h2>Latest Post</h2>
 
-<!-- LEFT SIDEBAR -->
-
-<!-- <aside class="left-sidebar">
-
-<h2>Menu</h2>
-
-<ul>
-	<li><i class="fa-solid fa-house"></i> Home</li>
-	<li><i class="fa-solid fa-compass"></i> Explore</li>
-	<li><i class="fa-solid fa-message"></i> Messages</li>
-	<li><i class="fa-solid fa-user"></i> Profile</li>
-	<li><i class="fa-solid fa-gear"></i> Settings</li>
-</ul>
-
-</aside> -->
-
-<section class="feed">
-
-    <!-- Stories -->
-    <div class="stories">
-
-        <div class="story">
-            <img src="https://i.pravatar.cc/80?img=1">
-            <p>Soumya</p>
-        </div>
-
-        <div class="story">
-            <img src="https://i.pravatar.cc/80?img=2">
-            <p>Rahul</p>
-        </div>
-
-        <div class="story">
-            <img src="https://i.pravatar.cc/80?img=3">
-            <p>Krishna</p>
-        </div>
-		
-    </div>
-
-    <!-- Create Post -->
-<div class="create-post">
-    <img src="https://i.pravatar.cc/100?img=8" class="user-pic">
-    <!-- <input type="text" id="postText" placeholder="What's on your mind?"> -->
-	<input type="text" id="postText" placeholder="Write something...">
-    <button id="postBtn">Post</button>
-</div>
-
-<div id="feed">
-<div class="post-container">
-    <!-- Post 1-->
-    <div class="post">
-        <div class="post-header">
-            <img src="https://i.pravatar.cc/100?img=8">
-            <div>
-                <h3>Soumya Nanda</h3>
-                <small>2 minutes ago</small>
+            <div class="post-image">
+                <img src="images/post1.jpg" alt="Latest Post">
             </div>
-        </div>
-       <img class="post-image" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800">
-        <div class="actions">
-            <button onclick="likePost()">❤️ Like</button>
-            <button>💬 Comment</button>
-            <button>🔄 Share</button>
-        </div>
-        <p class="caption">
-            Welcome to IncognitoWorld 🚀
-            https://srnsoftware.github.io/IncognitoWorld/
-        </p>
-    </div>
 
-    <!-- Post 2-->
-    <div class="post">
-        <div class="post-header">
-            <img src="https://i.pravatar.cc/100?img=8">
-            <div>
-                <h3>Soumya Nanda</h3>
-                <small>2 minutes ago</small>
+            <p class="post-text">
+                My new post text...
+            </p>
+
+            <time datetime="2026-08-18">
+                18 August 2026
+            </time>
+
+        </article>
+
+
+        <!-- ================= POST 2 ================= -->
+
+        <article class="post">
+
+            <h2>Previous Post</h2>
+
+            <div class="post-image">
+                <img src="images/post2.jpg" alt="Previous Post">
             </div>
-        </div>
-       <img class="post-image" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800">
-        <div class="actions">
-            <button>❤️ Like</button>
-            <button>💬 Comment</button>
-            <button>🔄 Share</button>
-        </div>
-        <p class="caption">
-            Welcome to IncognitoWorld 🚀
-            This is my first social media post.
-        </p>
-    </div>
-</div>
-</div>
-</section>
 
-<!-- RIGHT SIDEBAR -->
+            <p class="post-text">
+                Previous post text...
+            </p>
 
-<!-- <aside class="right-sidebar">
-<h2>Trending</h2>
-<ul>
-	<li>#Technology</li>
-	<li>#Coding</li>
-	<li>#Travel</li>
-	<li>#Sports</li>
-	<li>#Music</li>
-</ul>
-</aside> -->
-</main>
-<script src="script.js"></script>	
+            <time datetime="2026-08-17">
+                17 August 2026
+            </time>
+
+        </article>
+
+
+        <!-- ================= POST 3 ================= -->
+
+        <article class="post">
+
+            <h2>Older Post</h2>
+
+            <div class="post-image">
+                <img src="images/post3.jpg" alt="Older Post">
+            </div>
+
+            <p class="post-text">
+                Older post text...
+            </p>
+
+            <time datetime="2026-08-16">
+                16 August 2026
+            </time>
+
+        </article>
+
+
+        <!-- ================= POST 4 ================= -->
+
+        <article class="post">
+
+            <h2>Another Post</h2>
+
+            <div class="post-image">
+                <img src="images/post4.jpg" alt="Another Post">
+            </div>
+
+            <p class="post-text">
+                Another post text...
+            </p>
+
+            <time datetime="2026-08-15">
+                15 August 2026
+            </time>
+
+        </article>
+
+    </main>
+
 </body>
-
 </html>
