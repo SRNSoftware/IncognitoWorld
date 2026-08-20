@@ -1,14 +1,52 @@
 /* =========================
-   RESET
+   PROFILE + NAME + DATE
 ========================= */
 
-.more-text {
-  display: none;
+.post-header{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:15px;
 }
 
-#moreBtn {
-  color: #65676b;
-  cursor: pointer;
+
+.profile-img{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+
+.user-info h3{
+    margin:0;
+    font-size:18px;
+}
+
+
+.user-info time{
+    font-size:13px;
+    color:#aaa;
+}
+
+/* =========================
+   DESCRIPTION
+========================= */
+
+.description{
+    line-height:1.6;
+    margin-bottom:20px;
+}
+
+.more-text{
+    display:none;
+}
+
+.more-btn{
+    color:#6C63FF;
+    cursor:pointer;
+    white-space:nowrap;
+
 }
 
 * {
@@ -29,9 +67,7 @@ html {
 body {
     background: #f4f4f4;
     color: #222;
-
     font-family: Helvetica, Arial, sans-serif;
-
     line-height: 1.5;
 }
 
@@ -43,9 +79,7 @@ body {
 .page {
     width: 100%;
     max-width: 750px;
-
     margin: 0 auto;
-
     padding: 50px 20px;
 }
 
@@ -61,16 +95,13 @@ body {
 .page-header h1 {
     font-size: 38px;
     font-weight: 700;
-
     letter-spacing: 1px;
 }
 
 .header-line {
     width: 100%;
     height: 2px;
-
     background: #222;
-
     margin-top: 10px;
 }
 
@@ -81,13 +112,9 @@ body {
 
 .post {
     width: 100%;
-
     background: #fff;
-
     padding: 25px;
-
     margin-bottom: 40px;
-
     border: 1px solid #ddd;
 }
 
@@ -99,7 +126,6 @@ body {
 .post h2 {
     font-size: 25px;
     font-weight: 600;
-
     margin-bottom: 20px;
 }
 
@@ -110,33 +136,18 @@ body {
 
 .post-image {
     width: 100%;
-
     aspect-ratio: 16 / 10;
-
     background: #e5e5e5;
-
     overflow: hidden;
-
     margin-bottom: 20px;
 }
 
 .post-image img {
     width: 100%;
     height: 100%;
-
     display: block;
-
     object-fit: cover;
 }
-
-.more-text {
-  display: inline;
-}
-
-.more-btn {
-  display: none;
-}
-
 
 /* =========================
    POST TEXT
@@ -144,11 +155,8 @@ body {
 
 .post-text {
     font-size: 18px;
-
     line-height: 1.6;
-
     margin-bottom: 10px;
-
     overflow-wrap: break-word;
 }
 
@@ -159,12 +167,9 @@ body {
 
 .post time {
     display: block;
-
     color: #777;
-
     font-size: 14px;
 }
-
 
 /* =========================
    TABLET
@@ -172,20 +177,32 @@ body {
 
 @media (max-width: 768px) {
 	
-.more-text {
-    display: none;
-  }
+    .profile-img{
+        width:40px;
+        height:40px;
+    }
 
-  .more-btn {
-    display: inline;
-    color: #65676b;
-    cursor: pointer;
-  }
+    .user-info h3{
+        font-size:16px;
+    }
 
+    .user-info time{
+        font-size:12px;
+    }	
+
+    .more-text {
+        display: none;
+    }
+
+    .more-btn{
+        display:inline;
+        white-space: nowrap;
+        margin-left:4px;
+        cursor:pointer;
+    }
 
     .page {
         max-width: 100%;
-
         padding: 35px 20px;
     }
 
@@ -199,13 +216,11 @@ body {
 
     .post {
         padding: 20px;
-
         margin-bottom: 30px;
     }
 
     .post h2 {
         font-size: 23px;
-
         margin-bottom: 16px;
     }
 
@@ -221,17 +236,26 @@ body {
 
 @media (max-width: 480px) {
 
-.more-text {
-    display: none;
-  }
+    .post-header{
+        gap:8px;
+    }
 
-  .more-btn {
-    display: inline;
-  }
+    .profile-img{
+        width:35px;
+        height:35px;
+    }
+
+    .more-text {
+        display: none;
+    }
+
+    .more-btn {
+        display: inline;
+        white-space: nowrap;
+    }
 
     .page {
         width: 100%;
-
         padding: 25px 12px;
     }
 
@@ -249,27 +273,22 @@ body {
 
     .post {
         padding: 15px;
-
         margin-bottom: 25px;
-
         border-radius: 4px;
     }
 
     .post h2 {
         font-size: 20px;
-
         margin-bottom: 13px;
     }
 
     .post-image {
         aspect-ratio: 4 / 3;
-
         margin-bottom: 15px;
     }
 
     .post-text {
         font-size: 16px;
-
         line-height: 1.5;
     }
 
@@ -291,6 +310,7 @@ body {
 
   .more-btn {
     display: inline;
+    white-space: nowrap;
   }
 
     .page {
