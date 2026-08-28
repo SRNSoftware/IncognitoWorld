@@ -1,0 +1,56 @@
+<!--pdVMaGTUs7q&Pw!-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Chat 💬</title>
+
+  <link rel="stylesheet" href="style2.css">
+</head>
+
+<body>
+
+  <div class="chat-container">
+
+    <header class="chat-header">
+      <div class="profile">
+        <div class="profile-icon">💕</div>
+
+        <div>
+          <h2>Our Chat</h2>
+          <p>● Online</p>
+        </div>
+      </div>
+
+      <button class="clear-btn" onclick="clearChat()">🗑️</button>
+    </header>
+
+
+    <main class="chat-messages" id="chatMessages">
+    </main>
+
+
+    <form class="chat-input-area" id="chatForm">
+
+      <input
+        type="text"
+        id="messageInput"
+        placeholder="Type a message..."
+        autocomplete="off"
+        maxlength="500"
+        required
+      >
+
+      <button type="submit" class="send-btn">
+        ➤
+      </button>
+
+    </form>
+
+  </div>
+
+ <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+ <script src="script2.js"></script>
+</body>
+</html>
