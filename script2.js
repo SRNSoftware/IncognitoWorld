@@ -91,13 +91,30 @@ function displayMessage(message) {
 // ================================
 
 chatForm.addEventListener("submit", async function(event) {
+
   event.preventDefault();
+
   const text = messageInput.value.trim();
-  if (!text) {
-    return;
-  }
+
+  if (!text) return;
 
 
+  // Clear input immediately
+  messageInput.value = "";
+
+
+  // Show message instantly
+  const tempMessage = {
+    sender: MY_NAME,
+    message: text,
+    created_at: new Date().toISOString()
+  };
+
+  displayMessage(tempMessage);
+  scrollToBottom();
+
+
+  // Save to database
   const { error } = await supabaseClient
     .from("messages")
     .insert({
@@ -108,14 +125,9 @@ chatForm.addEventListener("submit", async function(event) {
 
   if (error) {
     console.error("Error sending message:", error);
-    alert("Message could not be sent.");
-    return;
   }
 
-  messageInput.value = "";
-  scrollToBottom();
 });
-
 
 // ================================
 // REAL-TIME CHAT
