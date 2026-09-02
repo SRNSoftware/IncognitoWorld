@@ -20,7 +20,7 @@ body {
 .chat-container {
   width: 100%;
   max-width: 600px;
-  height: 500px;
+  height: 200px;
   background: white;
   border-radius: 18px;
   overflow: hidden;
