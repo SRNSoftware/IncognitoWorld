@@ -100,24 +100,6 @@ chatForm.addEventListener("submit", async function(event) {
     return;
   }
 
-
-  // Clear input immediately
-  messageInput.value = "";
-
-
-  // Show message instantly
-  const tempMessage = {
-    sender: MY_NAME,
-    message: text,
-    created_at: new Date().toISOString()
-  };
-
-
-  displayMessage(tempMessage);
-  scrollToBottom();
-
-
-  // Save to Supabase
   const { error } = await supabaseClient
     .from("messages")
     .insert({
@@ -125,13 +107,15 @@ chatForm.addEventListener("submit", async function(event) {
       message: text
     });
 
-
   if (error) {
     console.error("Error sending message:", error);
+    alert("Message could not be sent.");
+    return;
   }
 
-});
+  messageInput.value = "";
 
+});
 // ================================
 // REAL-TIME CHAT
 // ================================
