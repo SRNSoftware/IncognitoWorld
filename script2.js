@@ -134,6 +134,7 @@ chatForm.addEventListener("submit", async function(event) {
 
 
   messageInput.value = "";
+  scrollToBottom();
 
 });
 
