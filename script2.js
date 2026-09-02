@@ -96,7 +96,9 @@ chatForm.addEventListener("submit", async function(event) {
 
   const text = messageInput.value.trim();
 
-  if (!text) return;
+  if (!text) {
+    return;
+  }
 
 
   // Clear input immediately
@@ -110,11 +112,12 @@ chatForm.addEventListener("submit", async function(event) {
     created_at: new Date().toISOString()
   };
 
+
   displayMessage(tempMessage);
   scrollToBottom();
 
 
-  // Save to database
+  // Save to Supabase
   const { error } = await supabaseClient
     .from("messages")
     .insert({
