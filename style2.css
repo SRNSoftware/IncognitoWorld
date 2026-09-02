@@ -19,8 +19,8 @@ body {
 
 .chat-container {
   width: 100%;
-  max-width: 600px;
-  height: 500px;
+  max-width: 400px;
+  height: 400px;
   background: white;
   border-radius: 18px;
   overflow: hidden;
@@ -56,7 +56,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-
   font-size: 22px;
 }
 
