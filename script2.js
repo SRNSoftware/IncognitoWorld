@@ -62,40 +62,26 @@ async function loadMessages() {
 // ================================
 
 function displayMessage(message) {
-
   const messageDiv = document.createElement("div");
-
   const type =
     message.sender === MY_NAME
       ? "sent"
       : "received";
-
   messageDiv.classList.add("message", type);
-
-
   const textElement = document.createElement("p");
-
   textElement.classList.add("message-text");
-
   textElement.textContent = message.message;
-
-
   const timeElement = document.createElement("span");
-
   timeElement.classList.add("message-time");
-
   const date = new Date(message.created_at);
-
   timeElement.textContent =
     date.toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit"
     });
-
-
+  
   messageDiv.appendChild(textElement);
   messageDiv.appendChild(timeElement);
-
   chatMessages.appendChild(messageDiv);
 }
 
@@ -105,11 +91,8 @@ function displayMessage(message) {
 // ================================
 
 chatForm.addEventListener("submit", async function(event) {
-
   event.preventDefault();
-
   const text = messageInput.value.trim();
-
   if (!text) {
     return;
   }
@@ -124,18 +107,13 @@ chatForm.addEventListener("submit", async function(event) {
 
 
   if (error) {
-
     console.error("Error sending message:", error);
-
     alert("Message could not be sent.");
-
     return;
   }
 
-
   messageInput.value = "";
   scrollToBottom();
-
 });
 
 
@@ -153,11 +131,8 @@ supabaseClient
       table: "messages"
     },
     payload => {
-
       displayMessage(payload.new);
-
       scrollToBottom();
-
     }
   )
   .subscribe();
@@ -168,10 +143,8 @@ supabaseClient
 // ================================
 
 function scrollToBottom() {
-
   chatMessages.scrollTop =
     chatMessages.scrollHeight;
-
 }
 
 
