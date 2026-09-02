@@ -182,19 +182,30 @@ body {
 
 /* Mobile */
 
-@media (max-width: 600px) {
-
-  body {
-    padding: 0;
-  }
-
+/* Tablet */
+@media (max-width: 768px) {
   .chat-container {
-    height: 100vh;
-    border-radius: 0;
+    max-width: 450px;
+    height: 450px;
   }
+}
 
-  .message {
-    max-width: 82%;
+
+/* Mobile */
+@media (max-width: 480px) {
+  .chat-container {
+    width: 95%;
+    max-width: 350px;
+    height: 400px;
   }
+}
 
+
+/* Small Mobile */
+@media (max-width: 350px) {
+  .chat-container {
+    width: 95%;
+    max-width: 300px;
+    height: 350px;
+  }
 }
