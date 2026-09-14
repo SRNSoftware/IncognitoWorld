@@ -13,6 +13,14 @@ const supabaseClient = window.supabase.createClient(
   SUPABASE_KEY
 );
 
+// ================================ 
+// USER IDs 
+// ================================ 
+
+const USER_1 = "c4a3b506-a455-4dce-81d2-694e539b03d3"; 
+const USER_2 = "2fcb71c0-c0d8-473e-bd0d-8d2339ea1328"; 
+let currentUser = null; 
+let otherUser = null;
 
 // ================================
 // CHAT ELEMENTS
@@ -40,6 +48,9 @@ async function loadMessages() {
   const { data, error } = await supabaseClient
     .from("messages")
     .select("*")
+    .or(
+      `and(sender_id.eq.${currentUser.id},receiver_id.eq.${otherUser}),and(sender_id.eq.${otherUser},receiver_id.eq.${currentUser.id})`
+    )
     .order("created_at", { ascending: true });
 
   if (error) {
@@ -64,9 +75,9 @@ async function loadMessages() {
 function displayMessage(message) {
   const messageDiv = document.createElement("div");
   const type =
-    message.sender === MY_NAME
-      ? "sent"
-      : "received";
+   message.sender_id === currentUser.id
+    ? "sent"
+    : "received";
   messageDiv.classList.add("message", type);
   const textElement = document.createElement("p");
   textElement.classList.add("message-text");
@@ -101,11 +112,13 @@ chatForm.addEventListener("submit", async function(event) {
   }
 
   const { error } = await supabaseClient
-    .from("messages")
-    .insert({
-      sender: MY_NAME,
-      message: text
-    });
+  .from("messages")
+  .insert({
+    sender: currentUser.id,
+    sender_id: currentUser.id,
+    receiver_id: otherUser,
+    message: text
+  });
 
   if (error) {
     console.error("Error sending message:", error);
@@ -114,7 +127,6 @@ chatForm.addEventListener("submit", async function(event) {
   }
 
   messageInput.value = "";
-
 });
 // ================================
 // REAL-TIME CHAT
@@ -130,8 +142,18 @@ supabaseClient
       table: "messages"
     },
     payload => {
-      displayMessage(payload.new);
-      scrollToBottom();
+
+      const message = payload.new;
+
+      if (
+        (message.sender_id === currentUser?.id &&
+         message.receiver_id === otherUser) ||
+        (message.sender_id === otherUser &&
+         message.receiver_id === currentUser?.id)
+      ) {
+        displayMessage(message);
+        scrollToBottom();
+      }
     }
   )
   .subscribe();
@@ -151,4 +173,44 @@ function scrollToBottom() {
 // START CHAT
 // ================================
 
-loadMessages();
+async function startChat() {
+  const { data, error } = await supabaseClient.auth.getUser();
+
+  if (error || !data.user) {
+    window.location.href = "login.html";
+    return;
+  }
+
+  currentUser = data.user;
+
+  if (currentUser.id === USER_1) {
+    otherUser = USER_2;
+  } else if (currentUser.id === USER_2) {
+    otherUser = USER_1;
+  } else {
+    alert("Unauthorized user");
+    return;
+  }
+
+  loadMessages();
+}
+
+startChat();
+
+//===================================
+// LOG OUT 
+//===================================
+
+async function logout() {
+    await supabaseClient.auth.signOut();
+    window.location.href = "index.html";
+}
+
+//===================================
+// AUTO LOGOUT AFTER 1 MINUTE
+//===================================
+
+setTimeout(async () => {
+    await supabaseClient.auth.signOut();
+    window.location.href = "index.html";
+}, 60000);
