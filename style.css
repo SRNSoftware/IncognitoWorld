@@ -382,14 +382,7 @@ nav a:hover{
 
     html,
     body{
-        height:auto;
-        overflow-x:hidden;
-        overflow-y:auto;
-        overscroll-behavior-y:none;
-    }
-
-    body{
-        background-attachment:scroll;
+        overflow-y:hidden;
     }
     
     .hero{
