@@ -189,7 +189,7 @@ nav a:hover{
     font-weight:800;
     letter-spacing:clamp(8px, 2.2vw, 25px);
     margin-top:35px;
-    margin-left: 25px;
+    /*margin-left: 25px;*/
     border: 1px solid red;
 }
 
