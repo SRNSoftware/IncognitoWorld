@@ -1,7 +1,8 @@
 *{
     margin:0;
     padding:0;
-    box-sizing:border-box;  
+    box-sizing:border-box;
+    font-family:'Poppins', sans-serif;
 } 
 
 /*html,
@@ -23,7 +24,6 @@ body {
 }
 
 body{
-    font-family:'Poppins', sans-serif;
     background-image:url("bg_img-1.png");
     background-size:cover;
     background-position:center;
