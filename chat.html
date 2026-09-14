@@ -1,6 +1,6 @@
 <!--pdVMaGTUs7q&Pw!-->
 <!DOCTYPE html>
-<html lang="en"> 
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -15,7 +15,7 @@
 
     <header class="chat-header">
       <div class="profile">
-        <div class="profile-icon">💕</div>
+        <div class="profile-icon">ॐ</div>
 
         <div>
           <h2>Our Chat</h2>
@@ -23,13 +23,14 @@
         </div>
       </div>
 
-      <button class="clear-btn" onclick="clearChat()">🏠</button>
+      <button class="clear-btn" onclick="logout()">↩</button>
     </header>
 
 
     <main class="chat-messages" id="chatMessages">
     </main>
 
+    <div id="typingIndicator"></div>
 
     <form class="chat-input-area" id="chatForm">
 
@@ -50,7 +51,8 @@
 
   </div>
 
- <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
- <script src="chat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="chat.js"></script>
 </body>
 </html>
