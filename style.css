@@ -340,7 +340,7 @@ nav a:hover{
 
     .hero h1{
         /*font-size:clamp(40px, 10vw, 70px);*/
-        font-size: 60px;
+        font-size: 50px;
         letter-spacing:clamp(5px, 2vw, 9px);
     }
 
@@ -349,7 +349,6 @@ nav a:hover{
         padding:0 5px;
         font-size:13px;
         line-height:1.5;
-        margin-right: 20px;
     }
 
     .cta{
