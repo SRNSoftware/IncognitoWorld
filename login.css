@@ -15,7 +15,7 @@ body {
 }
 
 .login-box {
-    width: 400px;
+    width: 350px;
     background: #241b1a;
     padding: 25px;
     text-align: center;
@@ -75,7 +75,7 @@ p a:hover {
 }
 @media screen and (max-width:480px){
     .login-box {
-    width: 300px;
+    width: 250px;
     background: #241b1a;
     padding: 25px;
     text-align: center;
