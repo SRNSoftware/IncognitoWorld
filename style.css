@@ -372,6 +372,18 @@ nav a:hover{
     .menu{
         font-size:27px;
     }
+
+    html,
+    body{
+        height:auto;
+        overflow-x:hidden;
+        overflow-y:auto;
+        overscroll-behavior-y:none;
+    }
+
+    body{
+        background-attachment:scroll;
+    }
     
     .hero{
         min-height:calc(100vh - 70px);
