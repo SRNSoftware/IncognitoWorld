@@ -72,6 +72,6 @@ async function login() {
         message.innerText = "Login Successful";
         setTimeout(() => {
             window.location.href = "chat.html";
-        }, 1000);
+        }, 3000);
     }
 }
