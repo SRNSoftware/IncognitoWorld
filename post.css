@@ -53,6 +53,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+	font-family:'Poppins', sans-serif;
 }
 
 
@@ -67,7 +68,6 @@ html {
 body {
     background: #f4f4f4;
     color: #222;
-    font-family:'Poppins', sans-serif;
     line-height: 1.5;
 }
 
