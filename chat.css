@@ -14,23 +14,23 @@ body {
   padding: 20px;
 }
 
-
 /* Main Chat */
 
 .chat-container {
-  width:350px;
-  height:400px;
-  background:#1B1514;
-  border-radius: 25px;
-  border:1px solid #2d2423;
-  overflow: hidden;
-  box-shadow:
+    width:350px;
+    height:400px;
+    background:#1B1514;
+    border-radius:25px;
+    border:1px solid #2d2423;
+    box-shadow:
         0 0 20px rgba(108,99,255,0.15),
         0 0 40px rgba(108,99,255,0.08);
-  display: flex;
-  flex-direction: column;
-}
 
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+}
+	
 
 /* Header */
 
@@ -79,7 +79,7 @@ body {
   height: 38px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.2);
-  color: white;
+  color: red;
   cursor: pointer;
   font-size: 17px;
 }
@@ -99,7 +99,6 @@ body {
   display: none;
 }
 
-
 /* Message */
 
 .message {
@@ -110,6 +109,7 @@ body {
   border-radius: 30px;
   word-wrap: break-word;
 }
+
 
 .message-text {
   font-size: 15px;
@@ -139,8 +139,8 @@ body {
 
 .received {
   margin-right: auto;
-  background: white;
-  color: #222;
+  background: #3A2E2B;
+  color: #E8E0DE;
   border-bottom-left-radius: 4px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
 }
