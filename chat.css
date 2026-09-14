@@ -17,7 +17,7 @@ body {
 /* Main Chat */
 
 .chat-container {
-    width:400px;
+    width:350px;
     height:400px;
     background:#1B1514;
     border-radius:25px;
@@ -174,8 +174,8 @@ body {
 /* Send Button */
 
 .send-btn {
-  width: 45px;
-  height: 45px;
+  width: 40px;
+  height: 40px;
   border: none;
   border-radius: 50%;
   background:linear-gradient(
