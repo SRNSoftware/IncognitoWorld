@@ -190,6 +190,7 @@ nav a:hover{
     letter-spacing:clamp(8px, 2.2vw, 25px);
     margin-top:35px;
     margin-left: 25px;
+    border: 1px solid red;
 }
 
 /* Paragraph */
@@ -200,6 +201,7 @@ nav a:hover{
     color:#fff;
     line-height:1.9;
     font-size:clamp(13px, 1.5vw, 16px);
+    border: 1px solid red;
 }
 
 
