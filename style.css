@@ -288,12 +288,6 @@ nav a:hover{
     .menu{
         display:block;
     }
-
-    body{
-        background-size:cover;
-        background-position:center;
-        background-attachment:scroll;
-    }
     
     .hero{
         min-height:calc(100vh - 75px);
@@ -376,11 +370,6 @@ nav a:hover{
 
     .menu{
         font-size:27px;
-    }
-
-    body{
-        background-size:120% auto;
-        background-position:center;
     }
     
     .hero{
