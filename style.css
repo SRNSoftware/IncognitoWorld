@@ -4,18 +4,18 @@
     box-sizing:border-box;  
 }
 
-html,
+/*html,
 body{
     width:100%;
     min-height:100%;
-}
+}*/
 
-/*html, body{
+html, body{
     width:100%;
     height:100%;
     overflow:hidden;
     overscroll-behavior:none;
-}*/
+}
 
 body{
     font-family:'Poppins', sans-serif;
