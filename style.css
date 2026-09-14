@@ -289,6 +289,12 @@ nav a:hover{
         display:block;
     }
 
+    body{
+        background-size:cover;
+        background-position:center;
+        background-attachment:scroll;
+    }
+    
     .hero{
         min-height:calc(100vh - 75px);
         padding:30px 20px;
@@ -372,6 +378,11 @@ nav a:hover{
         font-size:27px;
     }
 
+    body{
+        background-size:120% auto;
+        background-position:center;
+    }
+    
     .hero{
         min-height:calc(100vh - 70px);
 
@@ -425,6 +436,11 @@ nav a:hover{
         font-size:25px;
     }
 
+    body{
+        background-size:120% auto;
+        background-position:center;
+    }
+    
     .hero{
         padding-left:12px;
         padding-right:12px;
