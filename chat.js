@@ -213,4 +213,4 @@ async function logout() {
 setTimeout(async () => {
     await supabaseClient.auth.signOut();
     window.location.href = "index.html";
-}, 60000);
+}, 90000);
