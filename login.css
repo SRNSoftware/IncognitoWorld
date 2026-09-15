@@ -75,7 +75,7 @@ p a:hover {
 }
 @media screen and (max-width:480px){
     .login-box {
-    width: 250px;
+    width: 300px;
     background: #241b1a;
     padding: 25px;
     text-align: center;
