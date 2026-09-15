@@ -65,6 +65,10 @@ button:hover {
     font-size: 14px;
     margin-top: 12px;
 }
+p {
+    margin-top: 18px;
+    color: white;
+}
 p a {
     color: #6C63FF;
     text-decoration: none;
