@@ -17,8 +17,8 @@ const supabaseClient = window.supabase.createClient(
 // USER IDs 
 // ================================ 
 
-const USER_1 = "c4a3b506-a455-4dce-81d2-694e539b03d3"; 
-const USER_2 = "2fcb71c0-c0d8-473e-bd0d-8d2339ea1328"; 
+const USER_1 = "d1b240e1-0c4a-43e6-affe-c689f8a75e4d"; 
+const USER_2 = "c970b048-a9b2-43a6-8a2e-164520300dc1"; 
 let currentUser = null; 
 let otherUser = null;
 
