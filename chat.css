@@ -17,8 +17,8 @@ body {
 /* Main Chat */
 
 .chat-container {
-    width:350px;
-    height:400px;
+    width:380px;
+    height:550px;
     background:#1B1514;
     border-radius:25px;
     border:1px solid #2d2423;
@@ -153,6 +153,7 @@ body {
   gap: 10px;
   padding: 14px;
   background:#1B1514;
+  align-items: center;
 }
 
 #messageInput {
@@ -176,6 +177,8 @@ body {
 .send-btn {
   width: 40px;
   height: 40px;
+  min-width: 40px;
+  flex-shrink: 0;
   border: none;
   border-radius: 50%;
   background:linear-gradient(
@@ -209,8 +212,8 @@ body {
 @media (max-width: 480px) {
   
   .chat-container {
-    width: 100%;
-    max-width: none;
+    width: 95%;
+    /*max-width: none;*/
     height: 500px;
   }
 }
