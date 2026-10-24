@@ -53,7 +53,7 @@ body {
   height: 45px;
   border-radius: 50%;
   background: white;
-  color: #6c63ff;
+  /* color: #6c63ff;*/  color: #6C63FF;
   display: flex;
   align-items: center;
   justify-content: center;
