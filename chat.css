@@ -232,6 +232,7 @@ body {
     width: 38px;
     height: 38px;
     font-size: 17px;
+	color: green; 
   }
 	
   .send-btn {
