@@ -248,15 +248,13 @@ setInterval(async () => {
     const { error } = await supabaseClient
         .from("messages")
         .delete()
-        .neq("id", 0);   // delete all messages
+        .neq("id", 0);
 
     if (error) {
-        console.error("Database chat delete error:", error);
+        console.error("Delete Error:", error);
     } else {
-        console.log("All chat messages permanently deleted");
-
-        // Clear screen also
+        console.log("All messages deleted");
         chatMessages.innerHTML = "";
     }
 
-}, 60000); // 1 minute
+}, 60000);
