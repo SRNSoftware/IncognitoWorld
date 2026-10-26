@@ -235,6 +235,28 @@ setTimeout(async () => {
 // AUTO CLEAR CHAT EVERY 1 MINUTE
 //===================================
 
-setInterval(() => {
+/*setInterval(() => {
     chatMessages.innerHTML = "";
-}, 60000); // 60000 ms = 1 minute
+}, 60000); // 60000 ms = 1 minute*/
+
+//===================================
+// AUTO DELETE CHAT FROM DATABASE EVERY 1 MINUTE
+//===================================
+
+setInterval(async () => {
+
+    const { error } = await supabaseClient
+        .from("messages")
+        .delete()
+        .neq("id", 0);   // delete all messages
+
+    if (error) {
+        console.error("Database chat delete error:", error);
+    } else {
+        console.log("All chat messages permanently deleted");
+
+        // Clear screen also
+        chatMessages.innerHTML = "";
+    }
+
+}, 60000); // 1 minute
