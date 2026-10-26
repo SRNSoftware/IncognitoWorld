@@ -201,9 +201,25 @@ startChat();
 // LOG OUT 
 //===================================
 
-async function logout() {
+/*async function logout() {
     await supabaseClient.auth.signOut();
     window.location.href = "index.html";
+}*/
+
+async function logout() {
+    try {
+        // Supabase session remove
+        await supabaseClient.auth.signOut();
+
+        // Clear browser storage (optional but recommended)
+        localStorage.clear();
+        sessionStorage.clear();
+
+        // Redirect to login page
+        window.location.replace("index.html");
+    } catch (error) {
+        console.error("Logout failed:", error);
+    }
 }
 
 //===================================
