@@ -230,3 +230,11 @@ setTimeout(async () => {
     await supabaseClient.auth.signOut();
     window.location.href = "index.html";
 }, 90000);
+
+//===================================
+// AUTO CLEAR CHAT EVERY 1 MINUTE
+//===================================
+
+setInterval(() => {
+    chatMessages.innerHTML = "";
+}, 60000); // 60000 ms = 1 minute
