@@ -226,10 +226,10 @@ async function logout() {
 // AUTO LOGOUT AFTER 1 MINUTE
 //===================================
 
-setTimeout(async () => {
+/*setTimeout(async () => {
     await supabaseClient.auth.signOut();
     window.location.href = "index.html";
-}, 90000);
+}, 90000);*/
 
 //===================================
 // AUTO CLEAR CHAT EVERY 1 MINUTE
