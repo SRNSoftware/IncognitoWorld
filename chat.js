@@ -22,6 +22,8 @@ const USER_2 = "c970b048-a9b2-43a6-8a2e-164520300dc1";
 let currentUser = null; 
 let otherUser = null;
 
+let sessionId = null;
+
 // ================================
 // CHAT ELEMENTS
 // ================================
@@ -173,7 +175,7 @@ function scrollToBottom() {
 // START CHAT
 // ================================
 
-async function startChat() {
+/*async function startChat() {
   const { data, error } = await supabaseClient.auth.getUser();
 
   if (error || !data.user) {
@@ -194,6 +196,88 @@ async function startChat() {
 
   loadMessages();
 }
+
+startChat();*/
+
+async function startChat() {
+
+  const { data, error } = await supabaseClient.auth.getUser();
+
+  if (error || !data.user) {
+    window.location.href = "login.html";
+    return;
+  }
+
+  currentUser = data.user;
+
+
+  if (currentUser.id === USER_1) {
+    otherUser = USER_2;
+
+  } else if (currentUser.id === USER_2) {
+    otherUser = USER_1;
+
+  } else {
+    alert("Unauthorized user");
+    return;
+  }
+
+
+  // =================================
+  // CHECK ALREADY LOGGED IN DEVICE
+  // =================================
+
+  const { data: existingSession, error: sessionError } =
+    await supabaseClient
+      .from("active_sessions")
+      .select("*")
+      .eq("user_id", currentUser.id)
+      .maybeSingle();
+
+
+  if (sessionError) {
+    console.error(sessionError);
+    return;
+  }
+
+
+  if (existingSession) {
+
+    alert("This user is already logged in on another device. Please logout first.");
+
+    await supabaseClient.auth.signOut();
+
+    window.location.href = "index.html";
+
+    return;
+  }
+
+
+  // =================================
+  // CREATE NEW LOGIN SESSION
+  // =================================
+
+  const newSessionId = crypto.randomUUID();
+
+
+  const { error: insertError } = await supabaseClient
+    .from("active_sessions")
+    .insert({
+      user_id: currentUser.id,
+      session_id: newSessionId
+    });
+
+
+  if (insertError) {
+    console.error(insertError);
+    return;
+  }
+
+
+  // Start chat
+  loadMessages();
+}
+
 
 startChat();
 
