@@ -228,9 +228,11 @@ startChat();
 }*/
 
 async function logout() {
-
+    
     const mySessionId = localStorage.getItem("session_id");
-
+    
+    console.log("Session ID:", mySessionId);
+  
     if (mySessionId) {
 
         const { error } = await supabaseClient
