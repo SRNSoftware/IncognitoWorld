@@ -1,3 +1,5 @@
+let sessionId = null;
+
 // ================================
 // SUPABASE CONFIGURATION
 // ================================
@@ -21,8 +23,6 @@ const USER_1 = "d1b240e1-0c4a-43e6-affe-c689f8a75e4d";
 const USER_2 = "c970b048-a9b2-43a6-8a2e-164520300dc1"; 
 let currentUser = null; 
 let otherUser = null;
-
-let sessionId = null;
 
 // ================================
 // CHAT ELEMENTS
@@ -224,65 +224,73 @@ async function startChat() {
 
 
   // =================================
-  // CHECK ALREADY LOGGED IN DEVICE
-  // =================================
+// SINGLE DEVICE LOGIN CHECK
+// =================================
 
-  const { data: existingSession, error: sessionError } =
-    await supabaseClient
-      .from("active_sessions")
-      .select("*")
-      .eq("user_id", currentUser.id)
-      .maybeSingle();
+let mySessionId = localStorage.getItem("session_id");
 
 
-  if (sessionError) {
-    console.error(sessionError);
+if (mySessionId) {
+
+  // Check if this browser already owns the session
+  const { data: mySession } = await supabaseClient
+    .from("active_sessions")
+    .select("*")
+    .eq("user_id", currentUser.id)
+    .eq("session_id", mySessionId)
+    .maybeSingle();
+
+
+  if (mySession) {
+
+    console.log("Same device login");
+
+    loadMessages();
     return;
   }
+}
 
 
-  if (existingSession) {
+// =================================
+// CREATE NEW LOGIN SESSION
+// =================================
 
-    alert("This user is already logged in on another device. Please logout first.");
+const newSessionId = crypto.randomUUID();
+
+
+const { error: insertError } =
+await supabaseClient
+.from("active_sessions")
+.insert({
+    user_id: currentUser.id,
+    session_id: newSessionId
+});
+
+
+console.log("Insert Error:", insertError);
+
+
+if (insertError) {
+
+    alert("This user is already logged in on another device.");
 
     await supabaseClient.auth.signOut();
 
     window.location.href = "index.html";
 
     return;
-  }
-
-
-  // =================================
-  // CREATE NEW LOGIN SESSION
-  // =================================
-
-  const newSessionId = crypto.randomUUID();
-
-
-  const { error: insertError } = await supabaseClient
-  .from("active_sessions")
-  .insert({
-    user_id: currentUser.id,
-    session_id: crypto.randomUUID()
-  });
-
-console.log("Insert Error:", insertError);
-
-if (insertError) {
-  alert("Already logged in on another device.");
-  await supabaseClient.auth.signOut();
-  window.location.href = "index.html";
-  return;
 }
 
 
-  // Start chat
-  loadMessages();
-}
+// Save this device ID
+localStorage.setItem(
+    "session_id",
+    newSessionId
+);
 
 
-startChat();
+// Start chat
+loadMessages();
 
 //===================================
 // LOG OUT 
@@ -294,19 +302,27 @@ startChat();
 }*/
 
 async function logout() {
-    try {
-        // Supabase session remove
-        await supabaseClient.auth.signOut();
 
-        // Clear browser storage (optional but recommended)
-        localStorage.clear();
-        sessionStorage.clear();
+    const mySessionId = localStorage.getItem("session_id");
 
-        // Redirect to login page
-        window.location.replace("index.html");
-    } catch (error) {
-        console.error("Logout failed:", error);
+
+    if (mySessionId) {
+
+        await supabaseClient
+        .from("active_sessions")
+        .delete()
+        .eq("session_id", mySessionId);
+
     }
+
+
+    localStorage.removeItem("session_id");
+
+
+    await supabaseClient.auth.signOut();
+
+
+    window.location.replace("index.html");
 }
 
 //===================================
