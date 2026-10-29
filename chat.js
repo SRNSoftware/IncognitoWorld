@@ -190,9 +190,9 @@ function scrollToBottom() {
 // ================================
 
 async function startChat() {
-  /*const { data, error } = await supabaseClient.auth.getUser();
+  const { data, error } = await supabaseClient.auth.getUser();
 
-  if (error || !data.user) {
+  /*if (error || !data.user) {
     window.location.href = "login.html";
     return;
   }*/
