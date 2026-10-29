@@ -1,5 +1,3 @@
-let sessionId = null;
-
 // ================================
 // SUPABASE CONFIGURATION
 // ================================
@@ -59,10 +57,13 @@ async function loadMessages() {
     console.error("Error loading messages:", error);
     return;
   }
+
   chatMessages.innerHTML = "";
+
   data.forEach(message => {
     displayMessage(message);
   });
+
   scrollToBottom();
 }
 
@@ -100,13 +101,16 @@ function displayMessage(message) {
 // SEND MESSAGE
 // ================================
 
-chatForm.addEventListener("submit", async function(event) { 
-  console.log("SEND BUTTON WORKING");
+chatForm.addEventListener("submit", async function(event) {
+
   event.preventDefault();
+
   const text = messageInput.value.trim();
+
   if (!text) {
     return;
   }
+
   const { error } = await supabaseClient
   .from("messages")
   .insert({
@@ -121,8 +125,38 @@ chatForm.addEventListener("submit", async function(event) {
     alert("Message could not be sent.");
     return;
   }
+
   messageInput.value = "";
 });
+// ================================
+// REAL-TIME CHAT
+// ================================
+
+supabaseClient
+  .channel("chat-room")
+  .on(
+    "postgres_changes",
+    {
+      event: "INSERT",
+      schema: "public",
+      table: "messages"
+    },
+    payload => {
+
+      const message = payload.new;
+
+      if (
+        (message.sender_id === currentUser?.id &&
+         message.receiver_id === otherUser) ||
+        (message.sender_id === otherUser &&
+         message.receiver_id === currentUser?.id)
+      ) {
+        displayMessage(message);
+        scrollToBottom();
+      }
+    }
+  )
+  .subscribe();
 
 
 // ================================
@@ -139,7 +173,7 @@ function scrollToBottom() {
 // START CHAT
 // ================================
 
-/*async function startChat() {
+async function startChat() {
   const { data, error } = await supabaseClient.auth.getUser();
 
   if (error || !data.user) {
@@ -161,175 +195,22 @@ function scrollToBottom() {
   loadMessages();
 }
 
-startChat();*/
+startChat();
 
-async function startChat() {
-
-  const { data, error } = await supabaseClient.auth.getUser();
-  if (error || !data.user) {
-    window.location.href = "login.html";
-    return;
-  }
-
-  currentUser = data.user;
-
-
-  if (currentUser.id === USER_1) {
-    otherUser = USER_2;
-  } else if (currentUser.id === USER_2) {
-    otherUser = USER_1;
-  } else {
-    alert("Unauthorized user");
-    return;
-  }
-
-
-  // =================================
-// SINGLE DEVICE LOGIN CHECK
-// =================================
-
-let mySessionId = localStorage.getItem("session_id");
-
-
-if (mySessionId) {
-  // Check if this browser already owns the session
-  const { data: mySession } = await supabaseClient
-    .from("active_sessions")
-    .select("*")
-    .eq("user_id", currentUser.id)
-    .eq("session_id", mySessionId)
-    .maybeSingle();
-
-
-  if (mySession) {
-    console.log("Same device login");
-    loadMessages();
-    return;
-  }
-}
-
-
-// =================================
-// CREATE NEW LOGIN SESSION
-// =================================
-
-const newSessionId = crypto.randomUUID();
-
-
-const { error: insertError } =
-await supabaseClient
-.from("active_sessions")
-.insert({
-    user_id: currentUser.id,
-    session_id: newSessionId
-});
-
-
-console.log("Insert Error:", insertError);
-
-
-if (insertError) {
-
-    alert("This user is already logged in on another device.");
-
-    await supabaseClient.auth.signOut();
-
-    window.location.href = "index.html";
-
-    return;
-}
-
-
-// Save this device ID
-localStorage.setItem(
-    "session_id",
-    newSessionId
-);
-
-
-// Start chat
-await loadMessages();
-
-supabaseClient
-.channel("chat-room")
-.on(
-  "postgres_changes",
-  {
-    event: "INSERT",
-    schema: "public",
-    table: "messages"
-  },
-  payload => {
-
-    displayMessage(payload.new);
-    scrollToBottom();
-
-  }
-)
-.subscribe();
-}
 //===================================
 // LOG OUT 
 //===================================
 
-/*async function logout() {
+async function logout() {
     await supabaseClient.auth.signOut();
     window.location.href = "index.html";
-}*/
-
-async function logout() {
-
-    const mySessionId = localStorage.getItem("session_id");
-
-
-    if (mySessionId) {
-
-        await supabaseClient
-        .from("active_sessions")
-        .delete()
-        .eq("session_id", mySessionId);
-
-    }
-
-
-    localStorage.removeItem("session_id");
-    await supabaseClient.auth.signOut();
-    window.location.replace("index.html");
 }
 
 //===================================
 // AUTO LOGOUT AFTER 1 MINUTE
 //===================================
 
-/*setTimeout(async () => {
+setTimeout(async () => {
     await supabaseClient.auth.signOut();
     window.location.href = "index.html";
-}, 90000);*/
-
-//===================================
-// AUTO CLEAR CHAT EVERY 1 MINUTE
-//===================================
-
-/*setInterval(() => {
-    chatMessages.innerHTML = "";
-}, 60000); // 60000 ms = 1 minute*/
-
-//===================================
-// AUTO DELETE CHAT FROM DATABASE EVERY 1 MINUTE
-//===================================
-
-setInterval(async () => {
-
-    const { error } = await supabaseClient
-        .from("messages")
-        .delete()
-        .neq("id", 0);
-
-    if (error) {
-        console.error("Delete Error:", error);
-    } else {
-        console.log("All messages deleted");
-        chatMessages.innerHTML = "";
-    }
-
-}, 60000);
+}, 90000);
