@@ -299,4 +299,4 @@ setInterval(async () => {
         chatMessages.innerHTML = "";
     }
 
-}, 10000); // 10 seconds
+}, 300000); // 5 minutes
