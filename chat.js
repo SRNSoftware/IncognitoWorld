@@ -222,8 +222,30 @@ startChat();
 // LOG OUT 
 //===================================
 
-async function logout() {
+/*async function logout() {
     await supabaseClient.auth.signOut();
+    window.location.href = "index.html";
+}*/
+
+async function logout() {
+
+    const mySessionId = localStorage.getItem("session_id");
+
+    if (mySessionId) {
+
+        const { error } = await supabaseClient
+            .from("active_sessions")
+            .delete()
+            .eq("session_id", mySessionId);
+
+        console.log("Delete Error:", error);
+    }
+
+
+    localStorage.removeItem("session_id");
+
+    await supabaseClient.auth.signOut();
+
     window.location.href = "index.html";
 }
 
