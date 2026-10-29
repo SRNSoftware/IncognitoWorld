@@ -233,4 +233,4 @@ setInterval(async () => {
         chatMessages.innerHTML = "";
     }
 
-}, 10000); // 1 minutes
+}, 10000); // 10 seconds
