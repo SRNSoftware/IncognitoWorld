@@ -59,13 +59,10 @@ async function loadMessages() {
     console.error("Error loading messages:", error);
     return;
   }
-
   chatMessages.innerHTML = "";
-
   data.forEach(message => {
     displayMessage(message);
   });
-
   scrollToBottom();
 }
 
@@ -104,15 +101,11 @@ function displayMessage(message) {
 // ================================
 
 chatForm.addEventListener("submit", async function(event) {
-
   event.preventDefault();
-
   const text = messageInput.value.trim();
-
   if (!text) {
     return;
   }
-
   const { error } = await supabaseClient
   .from("messages")
   .insert({
@@ -127,38 +120,8 @@ chatForm.addEventListener("submit", async function(event) {
     alert("Message could not be sent.");
     return;
   }
-
   messageInput.value = "";
 });
-// ================================
-// REAL-TIME CHAT
-// ================================
-
-supabaseClient
-  .channel("chat-room")
-  .on(
-    "postgres_changes",
-    {
-      event: "INSERT",
-      schema: "public",
-      table: "messages"
-    },
-    payload => {
-
-      const message = payload.new;
-
-      if (
-        (message.sender_id === currentUser?.id &&
-         message.receiver_id === otherUser) ||
-        (message.sender_id === otherUser &&
-         message.receiver_id === currentUser?.id)
-      ) {
-        displayMessage(message);
-        scrollToBottom();
-      }
-    }
-  )
-  .subscribe();
 
 
 // ================================
@@ -202,7 +165,6 @@ startChat();*/
 async function startChat() {
 
   const { data, error } = await supabaseClient.auth.getUser();
-
   if (error || !data.user) {
     window.location.href = "login.html";
     return;
@@ -213,10 +175,8 @@ async function startChat() {
 
   if (currentUser.id === USER_1) {
     otherUser = USER_2;
-
   } else if (currentUser.id === USER_2) {
     otherUser = USER_1;
-
   } else {
     alert("Unauthorized user");
     return;
@@ -231,7 +191,6 @@ let mySessionId = localStorage.getItem("session_id");
 
 
 if (mySessionId) {
-
   // Check if this browser already owns the session
   const { data: mySession } = await supabaseClient
     .from("active_sessions")
@@ -242,9 +201,7 @@ if (mySessionId) {
 
 
   if (mySession) {
-
     console.log("Same device login");
-
     loadMessages();
     return;
   }
@@ -290,7 +247,25 @@ localStorage.setItem(
 
 
 // Start chat
-loadMessages();
+await loadMessages();
+
+supabaseClient
+.channel("chat-room")
+.on(
+  "postgres_changes",
+  {
+    event: "INSERT",
+    schema: "public",
+    table: "messages"
+  },
+  payload => {
+
+    displayMessage(payload.new);
+    scrollToBottom();
+
+  }
+)
+.subscribe();
 
 //===================================
 // LOG OUT 
@@ -317,11 +292,7 @@ async function logout() {
 
 
     localStorage.removeItem("session_id");
-
-
     await supabaseClient.auth.signOut();
-
-
     window.location.replace("index.html");
 }
 
