@@ -214,7 +214,7 @@ async function startChat() {
   }
 
   //loadMessages();
-  const newSessionId = crypto.randomUUID();
+const newSessionId = crypto.randomUUID();
 
 const { error: insertError } = await supabaseClient
   .from("active_sessions")
@@ -244,11 +244,6 @@ startChat();
 //===================================
 
 /*async function logout() {
-    await supabaseClient.auth.signOut();
-    window.location.href = "index.html";
-}*/
-
-async function logout() {
     
     const mySessionId = localStorage.getItem("session_id");
     
@@ -268,6 +263,34 @@ async function logout() {
     localStorage.removeItem("session_id");
 
     await supabaseClient.auth.signOut();
+
+    window.location.replace("index.html");
+}*/
+
+async function logout() {
+
+    console.log("Current User:", currentUser.id);
+
+    const { data, error } = await supabaseClient
+        .from("active_sessions")
+        .select("*")
+        .eq("user_id", currentUser.id);
+
+    console.log("Before Delete:", data);
+    console.log("Select Error:", error);
+
+
+    const { error: deleteError } = await supabaseClient
+        .from("active_sessions")
+        .delete()
+        .eq("user_id", currentUser.id);
+
+    console.log("Delete Error:", deleteError);
+
+
+    await supabaseClient.auth.signOut();
+
+    localStorage.removeItem("session_id");
 
     window.location.replace("index.html");
 }
