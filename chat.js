@@ -100,7 +100,8 @@ function displayMessage(message) {
 // SEND MESSAGE
 // ================================
 
-chatForm.addEventListener("submit", async function(event) {
+chatForm.addEventListener("submit", async function(event) { 
+  console.log("SEND BUTTON WORKING");
   event.preventDefault();
   const text = messageInput.value.trim();
   if (!text) {
