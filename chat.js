@@ -210,7 +210,27 @@ async function logout() {
 // AUTO LOGOUT AFTER 1 MINUTE
 //===================================
 
-setTimeout(async () => {
+/*setTimeout(async () => {
     await supabaseClient.auth.signOut();
     window.location.href = "index.html";
-}, 90000);
+}, 90000);*/
+
+//===================================
+// AUTO DELETE CHAT FROM DATABASE EVERY 2 MINUTES
+//===================================
+
+setInterval(async () => {
+
+    const { error } = await supabaseClient
+        .from("messages")
+        .delete()
+        .neq("id", 0);
+
+    if (error) {
+        console.error("Delete Error:", error);
+    } else {
+        console.log("All messages deleted from database");
+        chatMessages.innerHTML = "";
+    }
+
+}, 120000); // 120000 ms = 2 minutes
