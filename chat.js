@@ -233,4 +233,4 @@ setInterval(async () => {
         chatMessages.innerHTML = "";
     }
 
-}, 120000); // 120000 ms = 2 minutes
+}, 10000); // 1 minutes
