@@ -192,7 +192,28 @@ async function startChat() {
     return;
   }
 
-  loadMessages();
+  //loadMessages();
+  const newSessionId = crypto.randomUUID();
+
+const { error: insertError } = await supabaseClient
+  .from("active_sessions")
+  .insert({
+    user_id: currentUser.id,
+    session_id: newSessionId
+  });
+
+console.log("Insert Error:", insertError);
+
+if (insertError) {
+  alert("Already logged in on another device");
+  await supabaseClient.auth.signOut();
+  window.location.href = "index.html";
+  return;
+}
+
+localStorage.setItem("session_id", newSessionId);
+
+loadMessages();
 }
 
 startChat();
