@@ -1,3 +1,19 @@
+
+window.addEventListener("pageshow", async function(event) {
+
+    if (event.persisted) {
+
+        const { data } = await supabaseClient.auth.getUser();
+
+        if (!data.user) {
+            window.location.replace("index.html");
+        }
+
+    }
+
+});
+
+
 // ================================
 // SUPABASE CONFIGURATION
 // ================================
@@ -174,10 +190,15 @@ function scrollToBottom() {
 // ================================
 
 async function startChat() {
-  const { data, error } = await supabaseClient.auth.getUser();
+  /*const { data, error } = await supabaseClient.auth.getUser();
 
   if (error || !data.user) {
     window.location.href = "login.html";
+    return;
+  }*/
+
+  if (error || !data.user) {
+    window.location.replace("index.html");
     return;
   }
 
@@ -248,7 +269,7 @@ async function logout() {
 
     await supabaseClient.auth.signOut();
 
-    window.location.href = "index.html";
+    window.location.replace("index.html");
 }
 
 //===================================
