@@ -261,17 +261,20 @@ async function startChat() {
 
 
   const { error: insertError } = await supabaseClient
-    .from("active_sessions")
-    .insert({
-      user_id: currentUser.id,
-      session_id: newSessionId
-    });
+  .from("active_sessions")
+  .insert({
+    user_id: currentUser.id,
+    session_id: crypto.randomUUID()
+  });
 
+console.log("Insert Error:", insertError);
 
-  if (insertError) {
-    console.error(insertError);
-    return;
-  }
+if (insertError) {
+  alert("Already logged in on another device.");
+  await supabaseClient.auth.signOut();
+  window.location.href = "index.html";
+  return;
+}
 
 
   // Start chat
