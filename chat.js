@@ -322,4 +322,4 @@ setInterval(async () => {
         chatMessages.innerHTML = "";
     }
 
-}, 60000); // 5 minutes
+}, 3600000); // 1 hr
