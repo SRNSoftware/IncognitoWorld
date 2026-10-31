@@ -320,7 +320,7 @@ async function logout() {
 }, 90000);*/
 
 //===================================
-// AUTO DELETE CHAT FROM DATABASE EVERY 2 MINUTES
+// AUTO DELETE CHAT FROM DATABASE EVERY 30 sec
 //===================================
 
 setInterval(async () => {
@@ -337,7 +337,7 @@ setInterval(async () => {
         chatMessages.innerHTML = "";
     }
 
-}, 3600000); // 1 hr
+}, 30000); // 30 sec
 
 //===================================
 // Auto close session after browser close
