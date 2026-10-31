@@ -337,7 +337,7 @@ setInterval(async () => {
         chatMessages.innerHTML = "";
     }
 
-}, 30000); // 30 sec
+}, 60000); // 1 minute
 
 //===================================
 // Auto close session after browser close
