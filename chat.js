@@ -207,21 +207,63 @@ async function startChat() {
   }
 
   // Check active session
+    
+// Check old active session
+
+const { data: oldSession, error: sessionError } = await supabaseClient
+  .from("active_sessions")
+  .select("*")
+  .eq("user_id", currentUser.id)
+  .maybeSingle();
+
+if (sessionError) {
+  console.log("Session check error:", sessionError);
+}
+    
+if (oldSession) {
+
+  const lastSeen = new Date(oldSession.last_seen);
+  const now = new Date();
+
+  const diffSeconds = (now - lastSeen) / 1000;
+
+
+  if (diffSeconds > 120) {
+
+  const { error: deleteError } = await supabaseClient
+    .from("active_sessions")
+    .delete()
+    .eq("user_id", currentUser.id);
+
+  if (deleteError) {
+    console.log("Delete Error:", deleteError);
+    return;
+  }
+
+} else {
+    alert("Already logged in on another device");
+    await supabaseClient.auth.signOut();
+    window.location.replace("index.html");
+    return;
+  }
+}
+
+// Create new session
+
 const newSessionId = crypto.randomUUID();
 
 const { error: insertError } = await supabaseClient
   .from("active_sessions")
   .insert({
-    user_id: currentUser.id,
-    session_id: newSessionId
-  });
-
-console.log("Insert Error:", insertError);
+  user_id: currentUser.id,
+  session_id: newSessionId,
+  login_time: new Date().toISOString(),
+  last_seen: new Date().toISOString()
+});
 
 if (insertError) {
-  alert("Already logged in on another device");
-  await supabaseClient.auth.signOut();
-  window.location.replace("index.html");
+  console.log("Insert Error:", insertError);
+  alert("Unable to create session");
   return;
 }
 
