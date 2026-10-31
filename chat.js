@@ -189,11 +189,6 @@ function scrollToBottom() {
 async function startChat() {
   const { data, error } = await supabaseClient.auth.getUser();
 
-  /*if (error || !data.user) {
-    window.location.href = "login.html";
-    return;
-  }*/
-
   if (error || !data.user) {
     window.location.replace("index.html");
     return;
@@ -201,6 +196,7 @@ async function startChat() {
 
   currentUser = data.user;
 
+    // Check user permission first
   if (currentUser.id === USER_1) {
     otherUser = USER_2;
   } else if (currentUser.id === USER_2) {
@@ -210,7 +206,7 @@ async function startChat() {
     return;
   }
 
-  //loadMessages();
+  // Check active session
 const newSessionId = crypto.randomUUID();
 
 const { error: insertError } = await supabaseClient
@@ -225,15 +221,18 @@ console.log("Insert Error:", insertError);
 if (insertError) {
   alert("Already logged in on another device");
   await supabaseClient.auth.signOut();
-  window.location.href = "index.html";
+  window.location.replace("index.html");
   return;
 }
 
 localStorage.setItem("session_id", newSessionId);
 
-startHeartbeat();    
+startHeartbeat();  
     
-loadMessages();
+ // Open chat only after session success
+loadMessages(); 
+
+document.body.style.display = "block";
 }
 
 startChat();
@@ -241,30 +240,6 @@ startChat();
 //===================================
 // LOG OUT 
 //===================================
-
-/*async function logout() {
-    
-    const mySessionId = localStorage.getItem("session_id");
-    
-    console.log("Session ID:", mySessionId);
-  
-    if (mySessionId) {
-
-        const { error } = await supabaseClient
-            .from("active_sessions")
-            .delete()
-            .eq("session_id", mySessionId);
-
-        console.log("Delete Error:", error);
-    }
-
-
-    localStorage.removeItem("session_id");
-
-    await supabaseClient.auth.signOut();
-
-    window.location.replace("index.html");
-}*/
 
 async function logout() {
 
