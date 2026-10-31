@@ -274,7 +274,6 @@ startHeartbeat();
  // Open chat only after session success
 loadMessages(); 
 
-document.body.style.display = "block";
 }
 
 startChat();
