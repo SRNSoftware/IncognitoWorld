@@ -83,7 +83,6 @@ async function loadMessages() {
   scrollToBottom();
 }
 
-
 // ================================
 // DISPLAY MESSAGE
 // ================================
@@ -111,7 +110,6 @@ function displayMessage(message) {
   messageDiv.appendChild(timeElement);
   chatMessages.appendChild(messageDiv);
 }
-
 
 // ================================
 // SEND MESSAGE
@@ -144,6 +142,7 @@ chatForm.addEventListener("submit", async function(event) {
 
   messageInput.value = "";
 });
+
 // ================================
 // REAL-TIME CHAT
 // ================================
@@ -174,7 +173,6 @@ supabaseClient
   )
   .subscribe();
 
-
 // ================================
 // SCROLL TO BOTTOM
 // ================================
@@ -183,7 +181,6 @@ function scrollToBottom() {
   chatMessages.scrollTop =
     chatMessages.scrollHeight;
 }
-
 
 // ================================
 // START CHAT
@@ -234,6 +231,8 @@ if (insertError) {
 
 localStorage.setItem("session_id", newSessionId);
 
+startHeartbeat();    
+    
 loadMessages();
 }
 
@@ -323,3 +322,26 @@ setInterval(async () => {
     }
 
 }, 3600000); // 1 hr
+
+//===================================
+// Auto close session after browser close
+//===================================
+
+function startHeartbeat() {
+
+  setInterval(async () => {
+
+    const sessionId = localStorage.getItem("session_id");
+
+    if (!sessionId) return;
+
+    await supabaseClient
+      .from("active_sessions")
+      .update({
+        last_seen: new Date().toISOString()
+      })
+      .eq("session_id", sessionId);
+
+  }, 30000); // every 30 seconds
+
+}
