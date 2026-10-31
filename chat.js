@@ -349,14 +349,25 @@ function startHeartbeat() {
 
     const sessionId = localStorage.getItem("session_id");
 
-    if (!sessionId) return;
+    if (!sessionId) {
+      console.log("No session ID found");
+      return;
+    }
 
-    await supabaseClient
+    const { data, error } = await supabaseClient
       .from("active_sessions")
       .update({
         last_seen: new Date().toISOString()
       })
-      .eq("session_id", sessionId);
+      .eq("session_id", sessionId)
+      .select();
+
+
+    if (error) {
+      console.log("Heartbeat Error:", error);
+    } else {
+      console.log("Heartbeat Updated:", data);
+    }
 
   }, 30000); // every 30 seconds
 
