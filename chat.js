@@ -8,9 +8,7 @@ window.addEventListener("pageshow", async function(event) {
         if (!data.user) {
             window.location.replace("index.html");
         }
-
     }
-
 });
 
 
@@ -210,7 +208,7 @@ async function startChat() {
 
 const newSessionId = crypto.randomUUID();
 
-const { data, error } = await supabaseClient.rpc(
+const { data: sessionResult, error: sessionError } = await supabaseClient.rpc(
     "create_chat_session",
     {
         p_user_id: currentUser.id,
@@ -218,13 +216,13 @@ const { data, error } = await supabaseClient.rpc(
     }
 );
 
-if (error) {
-    console.log("Session Create Error:", error);
+if (sessionError) {
+    console.log("Session Create Error:", sessionError);
     alert("Unable to create session");
     return;
 }
 
-if (data === "ALREADY_LOGGED_IN") {
+if (sessionResult === "ALREADY_LOGGED_IN") {
     alert("Already logged in on another device");
 
     await supabaseClient.auth.signOut();
@@ -239,9 +237,7 @@ localStorage.setItem("session_id", newSessionId);
 startHeartbeat();
 
 loadMessages();
-
-startChat();
-
+}
 //===================================
 // LOG OUT 
 //===================================
