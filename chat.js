@@ -185,6 +185,7 @@ function scrollToBottom() {
 // ================================
 
 async function startChat() {
+
   const { data, error } = await supabaseClient.auth.getUser();
 
   if (error || !data.user) {
@@ -194,49 +195,73 @@ async function startChat() {
 
   currentUser = data.user;
 
-    // Check user permission first
+
+  // Check user permission first
   if (currentUser.id === USER_1) {
+
     otherUser = USER_2;
+
   } else if (currentUser.id === USER_2) {
+
     otherUser = USER_1;
+
   } else {
+
     alert("Unauthorized user");
     return;
+
   }
-    
-// Create new session using database function
 
-const newSessionId = crypto.randomUUID();
 
-const { data: sessionResult, error: sessionError } = await supabaseClient.rpc(
-    "create_chat_session",
-    {
+  // Create new session using database function
+
+  const newSessionId = crypto.randomUUID();
+
+
+  const { data: sessionResult, error: sessionError } =
+    await supabaseClient.rpc(
+      "create_chat_session",
+      {
         p_user_id: currentUser.id,
         p_session_id: newSessionId
-    }
-);
+      }
+    );
 
-if (sessionError) {
+
+  console.log("Session Result:", sessionResult);
+  console.log("Session Error:", sessionError);
+
+
+  if (sessionError) {
+
     console.log("Session Create Error:", sessionError);
     alert("Unable to create session");
     return;
-}
 
-if (sessionResult === "ALREADY_LOGGED_IN") {
+  }
+
+
+  if (sessionResult === "ALREADY_LOGGED_IN") {
+
     alert("Already logged in on another device");
 
     await supabaseClient.auth.signOut();
 
     window.location.replace("index.html");
+
     return;
-}
+
+  }
 
 
-localStorage.setItem("session_id", newSessionId);
+  localStorage.setItem("session_id", newSessionId);
 
-startHeartbeat();
 
-loadMessages();
+  startHeartbeat();
+
+
+  loadMessages();
+
 }
 //===================================
 // LOG OUT 
