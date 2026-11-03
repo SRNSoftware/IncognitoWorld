@@ -205,76 +205,40 @@ async function startChat() {
     alert("Unauthorized user");
     return;
   }
-
-  // Check active session
     
-// Check old active session
-
-const { data: oldSession, error: sessionError } = await supabaseClient
-  .from("active_sessions")
-  .select("*")
-  .eq("user_id", currentUser.id)
-  .maybeSingle();
-
-if (sessionError) {
-  console.log("Session check error:", sessionError);
-}
-    
-if (oldSession) {
-
-  const lastSeen = new Date(oldSession.last_seen);
-  const now = new Date();
-
-  const diffSeconds = (now - lastSeen) / 1000;
-
-
-  if (diffSeconds > 120) {
-
-  const { error: deleteError } = await supabaseClient
-    .from("active_sessions")
-    .delete()
-    .eq("user_id", currentUser.id);
-
-  if (deleteError) {
-    console.log("Delete Error:", deleteError);
-    return;
-  }
-
-} else {
-    alert("Already logged in on another device");
-    await supabaseClient.auth.signOut();
-    window.location.replace("index.html");
-    return;
-  }
-}
-
-// Create new session
+// Create new session using database function
 
 const newSessionId = crypto.randomUUID();
 
-const { error: insertError } = await supabaseClient
-  .from("active_sessions")
-  .insert({
-  user_id: currentUser.id,
-  session_id: newSessionId,
-  login_time: new Date().toISOString(),
-  last_seen: new Date().toISOString()
-});
+const { data, error } = await supabaseClient.rpc(
+    "create_chat_session",
+    {
+        p_user_id: currentUser.id,
+        p_session_id: newSessionId
+    }
+);
 
-if (insertError) {
-  console.log("Insert Error:", insertError);
-  alert("Unable to create session");
-  return;
+if (error) {
+    console.log("Session Create Error:", error);
+    alert("Unable to create session");
+    return;
 }
+
+if (data === "ALREADY_LOGGED_IN") {
+    alert("Already logged in on another device");
+
+    await supabaseClient.auth.signOut();
+
+    window.location.replace("index.html");
+    return;
+}
+
 
 localStorage.setItem("session_id", newSessionId);
 
-startHeartbeat();  
-    
- // Open chat only after session success
-loadMessages(); 
+startHeartbeat();
 
-}
+loadMessages();
 
 startChat();
 
