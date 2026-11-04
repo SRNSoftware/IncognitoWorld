@@ -237,6 +237,7 @@ startChat();
 //===================================
 
 async function logout() {
+    console.log("LOGOUT CALLED FROM:", new Error().stack);
     if (!currentUser) {
   await supabaseClient.auth.signOut();
   localStorage.removeItem("session_id");
