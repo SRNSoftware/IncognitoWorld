@@ -254,7 +254,7 @@ console.log("Current User:", currentUser.id);
     const { error: deleteError } = await supabaseClient
         .from("active_sessions")
         .delete()
-        .eq("user_id", currentUser.id);
+        .eq("session_id", localStorage.getItem("session_id"));
 
     console.log("Delete Error:", deleteError);
     await supabaseClient.auth.signOut();
@@ -272,7 +272,7 @@ console.log("Current User:", currentUser.id);
 }, 90000);*/
 
 //===================================
-// AUTO DELETE CHAT FROM DATABASE EVERY 30 sec
+// AUTO DELETE CHAT FROM DATABASE
 //===================================
 
 setInterval(async () => {
@@ -321,7 +321,7 @@ function startAutoLogout() {
     const { data } = await supabaseClient
       .from("active_sessions")
       .select("last_seen")
-      .eq("user_id", currentUser.id)
+      .eq("session_id", localStorage.getItem("session_id"))
       .single();
     if (!data) return;
     const diffSeconds =
