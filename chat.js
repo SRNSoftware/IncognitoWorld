@@ -201,27 +201,10 @@ if (sessionError) {
   console.log("Session check error:", sessionError);
 }
 if (oldSession) {
-
-  const lastSeen = new Date(oldSession.last_seen);
-  const now = new Date();
-  const diffSeconds = (now - lastSeen) / 1000;
-    
-  if (diffSeconds > 300) {
-  const { error: deleteError } = await supabaseClient
-    .from("active_sessions")
-    .delete()
-    .eq("user_id", currentUser.id);
-
-  if (deleteError) {
-    console.log("Delete Error:", deleteError);
-    return;
-  }
-} else {
-    alert("Already logged in on another device");
-    await supabaseClient.auth.signOut();
-    window.location.replace("index.html");
-    return;
-  }
+  alert("Already logged in on another device");
+  await supabaseClient.auth.signOut();
+  window.location.replace("index.html");
+  return;
 }
 
 // Create new session
