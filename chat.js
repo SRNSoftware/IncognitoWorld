@@ -1,10 +1,7 @@
 
 window.addEventListener("pageshow", async function(event) {
-
     if (event.persisted) {
-
         const { data } = await supabaseClient.auth.getUser();
-
         if (!data.user) {
             window.location.replace("index.html");
         }
@@ -58,7 +55,6 @@ const MY_NAME = "You";
 // ================================
 
 async function loadMessages() {
-
   const { data, error } = await supabaseClient
     .from("messages")
     .select("*")
@@ -71,13 +67,10 @@ async function loadMessages() {
     console.error("Error loading messages:", error);
     return;
   }
-
   chatMessages.innerHTML = "";
-
   data.forEach(message => {
     displayMessage(message);
   });
-
   scrollToBottom();
 }
 
@@ -114,11 +107,14 @@ function displayMessage(message) {
 // ================================
 
 chatForm.addEventListener("submit", async function(event) {
-
   event.preventDefault();
 
+if (!currentUser) {
+  alert("Session expired. Please login again.");
+  window.location.replace("index.html");
+  return;
+}
   const text = messageInput.value.trim();
-
   if (!text) {
     return;
   }
@@ -137,7 +133,6 @@ chatForm.addEventListener("submit", async function(event) {
     alert("Message could not be sent.");
     return;
   }
-
   messageInput.value = "";
 });
 
@@ -155,9 +150,7 @@ supabaseClient
       table: "messages"
     },
     payload => {
-
       const message = payload.new;
-
       if (
         (message.sender_id === currentUser?.id &&
          message.receiver_id === otherUser) ||
@@ -185,39 +178,28 @@ function scrollToBottom() {
 // ================================
 
 async function startChat() {
-
   const { data, error } = await supabaseClient.auth.getUser();
-
   if (error || !data.user) {
     window.location.replace("index.html");
     return;
   }
-
   currentUser = data.user;
 
 
   // Check user permission first
   if (currentUser.id === USER_1) {
-
     otherUser = USER_2;
-
   } else if (currentUser.id === USER_2) {
-
     otherUser = USER_1;
-
   } else {
-
     alert("Unauthorized user");
     return;
-
   }
 
 
   // Create new session using database function
 
   const newSessionId = crypto.randomUUID();
-
-
   const { data: sessionResult, error: sessionError } =
     await supabaseClient.rpc(
       "create_chat_session",
@@ -227,71 +209,44 @@ async function startChat() {
       }
     );
 
-
   console.log("Session Result:", sessionResult);
   console.log("Session Error:", sessionError);
 
-
   if (sessionError) {
-
     console.log("Session Create Error:", sessionError);
     alert("Unable to create session");
     return;
-
   }
-
-
   if (sessionResult === "ALREADY_LOGGED_IN") {
-
     alert("Already logged in on another device");
-
     await supabaseClient.auth.signOut();
-
     window.location.replace("index.html");
-
     return;
-
   }
-
-
   localStorage.setItem("session_id", newSessionId);
-
-
   startHeartbeat();
-
-
   loadMessages();
-
 }
 //===================================
 // LOG OUT 
 //===================================
 
 async function logout() {
-
+    if (!currentUser) {
+        console.log("No active user found");
+        await supabaseClient.auth.signOut();
+        localStorage.removeItem("session_id");
+        window.location.replace("index.html");
+        return;
+    }
     console.log("Current User:", currentUser.id);
-
-    const { data, error } = await supabaseClient
-        .from("active_sessions")
-        .select("*")
-        .eq("user_id", currentUser.id);
-
-    console.log("Before Delete:", data);
-    console.log("Select Error:", error);
-
-
     const { error: deleteError } = await supabaseClient
         .from("active_sessions")
         .delete()
         .eq("user_id", currentUser.id);
-
     console.log("Delete Error:", deleteError);
-
-
     await supabaseClient.auth.signOut();
-
     localStorage.removeItem("session_id");
-
     window.location.replace("index.html");
 }
 
@@ -314,14 +269,12 @@ setInterval(async () => {
         .from("messages")
         .delete()
         .neq("id", 0);
-
     if (error) {
         console.error("Delete Error:", error);
     } else {
         console.log("All messages deleted from database");
         chatMessages.innerHTML = "";
     }
-
 }, 60000); // 1 minute
 
 //===================================
@@ -329,16 +282,12 @@ setInterval(async () => {
 //===================================
 
 function startHeartbeat() {
-
   setInterval(async () => {
-
     const sessionId = localStorage.getItem("session_id");
-
     if (!sessionId) {
       console.log("No session ID found");
       return;
     }
-
     const { data, error } = await supabaseClient
       .from("active_sessions")
       .update({
@@ -346,14 +295,10 @@ function startHeartbeat() {
       })
       .eq("session_id", sessionId)
       .select();
-
-
     if (error) {
       console.log("Heartbeat Error:", error);
     } else {
       console.log("Heartbeat Updated:", data);
     }
-
   }, 30000); // every 30 seconds
-
 }
