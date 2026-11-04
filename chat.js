@@ -202,7 +202,6 @@ if (sessionError) {
 }
 if (oldSession) {
   alert("Already logged in on another device");
-  await supabaseClient.auth.signOut();
   window.location.replace("index.html");
   return;
 }
