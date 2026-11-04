@@ -187,7 +187,7 @@ async function startChat() {
     return;
   }
 
-  // Check active session
+// Check active session
     
 // Check old active session
 
@@ -206,7 +206,7 @@ if (oldSession) {
   const now = new Date();
   const diffSeconds = (now - lastSeen) / 1000;
     
-  if (diffSeconds > 120) {
+  if (diffSeconds > 300) {
   const { error: deleteError } = await supabaseClient
     .from("active_sessions")
     .delete()
@@ -244,7 +244,7 @@ if (insertError) {
 }
 localStorage.setItem("session_id", newSessionId);
 startHeartbeat();  
-    
+startAutoLogout();    
  // Open chat only after session success
 loadMessages(); 
 }
@@ -255,7 +255,14 @@ startChat();
 //===================================
 
 async function logout() {
-    console.log("Current User:", currentUser.id);
+    if (!currentUser) {
+  await supabaseClient.auth.signOut();
+  localStorage.removeItem("session_id");
+  window.location.replace("index.html");
+  return;
+}
+
+console.log("Current User:", currentUser.id);
     const { data, error } = await supabaseClient
         .from("active_sessions")
         .select("*")
@@ -324,4 +331,22 @@ function startHeartbeat() {
       console.log("Heartbeat Updated:", data);
     }
   }, 30000); // every 30 seconds
+}
+
+function startAutoLogout() {
+  setInterval(async () => {
+    if (!currentUser) return;
+    const { data } = await supabaseClient
+      .from("active_sessions")
+      .select("last_seen")
+      .eq("user_id", currentUser.id)
+      .single();
+    if (!data) return;
+    const diffSeconds =
+      (new Date() - new Date(data.last_seen)) / 1000;
+    if (diffSeconds > 300) {
+      alert("Session expired");
+      await logout();
+    }
+  }, 60000);
 }
