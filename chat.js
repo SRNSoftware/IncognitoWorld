@@ -1,11 +1,16 @@
 
 window.addEventListener("pageshow", async function(event) {
+
     if (event.persisted) {
+
         const { data } = await supabaseClient.auth.getUser();
+
         if (!data.user) {
             window.location.replace("index.html");
         }
+
     }
+
 });
 
 
@@ -55,6 +60,7 @@ const MY_NAME = "You";
 // ================================
 
 async function loadMessages() {
+
   const { data, error } = await supabaseClient
     .from("messages")
     .select("*")
@@ -67,10 +73,13 @@ async function loadMessages() {
     console.error("Error loading messages:", error);
     return;
   }
+
   chatMessages.innerHTML = "";
+
   data.forEach(message => {
     displayMessage(message);
   });
+
   scrollToBottom();
 }
 
@@ -107,14 +116,11 @@ function displayMessage(message) {
 // ================================
 
 chatForm.addEventListener("submit", async function(event) {
+
   event.preventDefault();
 
-if (!currentUser) {
-  alert("Session expired. Please login again.");
-  window.location.replace("index.html");
-  return;
-}
   const text = messageInput.value.trim();
+
   if (!text) {
     return;
   }
@@ -133,6 +139,7 @@ if (!currentUser) {
     alert("Message could not be sent.");
     return;
   }
+
   messageInput.value = "";
 });
 
@@ -150,7 +157,9 @@ supabaseClient
       table: "messages"
     },
     payload => {
+
       const message = payload.new;
+
       if (
         (message.sender_id === currentUser?.id &&
          message.receiver_id === otherUser) ||
@@ -179,14 +188,15 @@ function scrollToBottom() {
 
 async function startChat() {
   const { data, error } = await supabaseClient.auth.getUser();
+
   if (error || !data.user) {
     window.location.replace("index.html");
     return;
   }
+
   currentUser = data.user;
 
-
-  // Check user permission first
+    // Check user permission first
   if (currentUser.id === USER_1) {
     otherUser = USER_2;
   } else if (currentUser.id === USER_2) {
@@ -196,57 +206,106 @@ async function startChat() {
     return;
   }
 
+  // Check active session
+    
+// Check old active session
 
-  // Create new session using database function
+const { data: oldSession, error: sessionError } = await supabaseClient
+  .from("active_sessions")
+  .select("*")
+  .eq("user_id", currentUser.id)
+  .maybeSingle();
 
-  const newSessionId = crypto.randomUUID();
-  const { data: sessionResult, error: sessionError } =
-    await supabaseClient.rpc(
-      "create_chat_session",
-      {
-        p_user_id: currentUser.id,
-        p_session_id: newSessionId
-      }
-    );
+if (sessionError) {
+  console.log("Session check error:", sessionError);
+}
+    
+if (oldSession) {
 
-  console.log("Session Result:", sessionResult);
-  console.log("Session Error:", sessionError);
+  const lastSeen = new Date(oldSession.last_seen);
+  const now = new Date();
 
-  if (sessionError) {
-    console.log("Session Create Error:", sessionError);
-    alert("Unable to create session");
+  const diffSeconds = (now - lastSeen) / 1000;
+
+
+  if (diffSeconds > 120) {
+
+  const { error: deleteError } = await supabaseClient
+    .from("active_sessions")
+    .delete()
+    .eq("user_id", currentUser.id);
+
+  if (deleteError) {
+    console.log("Delete Error:", deleteError);
     return;
   }
-  if (sessionResult === "ALREADY_LOGGED_IN") {
+
+} else {
     alert("Already logged in on another device");
     await supabaseClient.auth.signOut();
     window.location.replace("index.html");
     return;
   }
-  localStorage.setItem("session_id", newSessionId);
-  startHeartbeat();
-  loadMessages();
 }
+
+// Create new session
+
+const newSessionId = crypto.randomUUID();
+
+const { error: insertError } = await supabaseClient
+  .from("active_sessions")
+  .insert({
+  user_id: currentUser.id,
+  session_id: newSessionId,
+  login_time: new Date().toISOString(),
+  last_seen: new Date().toISOString()
+});
+
+if (insertError) {
+  console.log("Insert Error:", insertError);
+  alert("Unable to create session");
+  return;
+}
+
+localStorage.setItem("session_id", newSessionId);
+
+startHeartbeat();  
+    
+ // Open chat only after session success
+loadMessages(); 
+}
+
+startChat();
+
 //===================================
 // LOG OUT 
 //===================================
 
 async function logout() {
-    if (!currentUser) {
-        console.log("No active user found");
-        await supabaseClient.auth.signOut();
-        localStorage.removeItem("session_id");
-        window.location.replace("index.html");
-        return;
-    }
+
     console.log("Current User:", currentUser.id);
+
+    const { data, error } = await supabaseClient
+        .from("active_sessions")
+        .select("*")
+        .eq("user_id", currentUser.id);
+
+    console.log("Before Delete:", data);
+    console.log("Select Error:", error);
+
+
     const { error: deleteError } = await supabaseClient
         .from("active_sessions")
         .delete()
         .eq("user_id", currentUser.id);
+
     console.log("Delete Error:", deleteError);
+
+
     await supabaseClient.auth.signOut();
+
     localStorage.removeItem("session_id");
+
     window.location.replace("index.html");
 }
 
@@ -269,12 +328,14 @@ setInterval(async () => {
         .from("messages")
         .delete()
         .neq("id", 0);
+
     if (error) {
         console.error("Delete Error:", error);
     } else {
         console.log("All messages deleted from database");
         chatMessages.innerHTML = "";
     }
+
 }, 60000); // 1 minute
 
 //===================================
@@ -282,12 +343,16 @@ setInterval(async () => {
 //===================================
 
 function startHeartbeat() {
+
   setInterval(async () => {
+
     const sessionId = localStorage.getItem("session_id");
+
     if (!sessionId) {
       console.log("No session ID found");
       return;
     }
+
     const { data, error } = await supabaseClient
       .from("active_sessions")
       .update({
@@ -295,10 +360,14 @@ function startHeartbeat() {
       })
       .eq("session_id", sessionId)
       .select();
+
+
     if (error) {
       console.log("Heartbeat Error:", error);
     } else {
       console.log("Heartbeat Updated:", data);
     }
+
   }, 30000); // every 30 seconds
+
 }
