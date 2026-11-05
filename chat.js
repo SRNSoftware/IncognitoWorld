@@ -333,7 +333,7 @@ window.location.replace("index.html");
 // AUTO DELETE CHAT
 // ================================
 
-setInterval(async()=>{
+/*setInterval(async()=>{
 const {error}=
 await supabaseClient
 .from("messages")
@@ -347,7 +347,7 @@ else{
 chatMessages.innerHTML="";
 console.log("Messages deleted");
 }
-},60000);
+},60000);*/
 
 // ================================
 // SCROLL
