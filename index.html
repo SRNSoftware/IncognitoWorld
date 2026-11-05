@@ -73,10 +73,15 @@
 <div id="loginOverlay" class="login-overlay">
     <div class="login-box">
         <span class="close-btn" onclick="closeLogin()">×</span>
-        <h2>Sign In</h2>
-        <input type="email" placeholder="Email">
-        <input type="password" placeholder="Password">
-        <button>Sign In</button>
+        <h2>Login</h2>
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="login()">Login</button>
+        <p id="message"></p>
+        <p style="color:white;">
+            Don't have an account?
+            <a href="signup.html">Sign Up</a>
+        </p>
     </div>
 </div>
 
