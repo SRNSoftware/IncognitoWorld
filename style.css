@@ -263,6 +263,7 @@ nav a:hover{
     width: 400px;
     height: 500px;
     border: none;
+    background: transparent;
 }
 
 /* =========================
