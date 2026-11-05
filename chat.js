@@ -41,9 +41,7 @@ const MY_NAME = "You";
 // ================================
 
 async function loadMessages() {
-
   if (!currentUser || !otherUser) return;
-
   const { data, error } = await supabaseClient
     .from("messages")
     .select("*")
@@ -62,7 +60,6 @@ async function loadMessages() {
   });
   scrollToBottom();
 }
-
 
 // ================================
 // DISPLAY MESSAGE
@@ -184,8 +181,6 @@ alert("Unauthorized user");
 return;
 }
 
-
-
 // create new session
 
 const newSessionId = crypto.randomUUID();
@@ -287,6 +282,35 @@ last_seen:new Date().toISOString()
 })
 .eq("session_id",mySession);
 },30000);
+}
+
+// ================================
+// REALTIME SESSION MONITOR
+// ================================
+
+function startSessionListener() {
+  const mySessionId = localStorage.getItem("session_id");
+  supabaseClient
+    .channel("session-monitor")
+    .on(
+      "postgres_changes",
+      {
+        event: "UPDATE",
+        schema: "public",
+        table: "active_sessions",
+        filter: `user_id=eq.${currentUser.id}`
+      },
+      async (payload) => {
+        const newSessionId = payload.new.session_id;
+        if (newSessionId !== mySessionId) {
+          alert("Your account has been logged in on another device");
+          await supabaseClient.auth.signOut();
+          localStorage.removeItem("session_id");
+          window.location.replace("index.html");
+        }
+      }
+    )
+    .subscribe();
 }
 
 // ================================
