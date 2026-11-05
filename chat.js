@@ -290,7 +290,10 @@ last_seen:new Date().toISOString()
 // ================================
 
 function startSessionListener() {
+
   const mySessionId = localStorage.getItem("session_id");
+
+
   supabaseClient
     .channel("session-monitor")
     .on(
@@ -302,16 +305,32 @@ function startSessionListener() {
         filter: `user_id=eq.${currentUser.id}`
       },
       async (payload) => {
+
+
         const newSessionId = payload.new.session_id;
+
+
         if (newSessionId !== mySessionId) {
-          alert("Your account has been logged in on another device");
+
+
+          alert("This account is logged in somewhere else");
+
+
           await supabaseClient.auth.signOut();
+
+
           localStorage.removeItem("session_id");
+
+
           window.location.replace("index.html");
+
+
         }
+
       }
     )
     .subscribe();
+
 }
 
 // ================================
