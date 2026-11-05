@@ -1,14 +1,3 @@
-
-window.addEventListener("pageshow", async function(event) {
-    if (event.persisted) {
-        const { data } = await supabaseClient.auth.getUser();
-        if (!data.user) {
-            window.location.replace("index.html");
-        }
-    }
-});
-
-
 // ================================
 // SUPABASE CONFIGURATION
 // ================================
@@ -24,14 +13,17 @@ const supabaseClient = window.supabase.createClient(
   SUPABASE_KEY
 );
 
-// ================================ 
-// USER IDs 
-// ================================ 
 
-const USER_1 = "d1b240e1-0c4a-43e6-affe-c689f8a75e4d"; 
-const USER_2 = "c970b048-a9b2-43a6-8a2e-164520300dc1"; 
-let currentUser = null; 
+// ================================
+// USER IDS
+// ================================
+
+const USER_1 = "d1b240e1-0c4a-43e6-affe-c689f8a75e4d";
+const USER_2 = "c970b048-a9b2-43a6-8a2e-164520300dc1";
+
+let currentUser = null;
 let otherUser = null;
+
 
 // ================================
 // CHAT ELEMENTS
@@ -41,19 +33,17 @@ const chatForm = document.getElementById("chatForm");
 const messageInput = document.getElementById("messageInput");
 const chatMessages = document.getElementById("chatMessages");
 
-
-// ================================
-// YOUR NAME
-// ================================
-
-// Change this to your name
 const MY_NAME = "You";
+
 
 // ================================
 // LOAD OLD MESSAGES
 // ================================
 
 async function loadMessages() {
+
+  if (!currentUser || !otherUser) return;
+
   const { data, error } = await supabaseClient
     .from("messages")
     .select("*")
@@ -61,8 +51,9 @@ async function loadMessages() {
       `and(sender_id.eq.${currentUser.id},receiver_id.eq.${otherUser}),and(sender_id.eq.${otherUser},receiver_id.eq.${currentUser.id})`
     )
     .order("created_at", { ascending: true });
+
   if (error) {
-    console.error("Error loading messages:", error);
+    console.error("Load Message Error:", error);
     return;
   }
   chatMessages.innerHTML = "";
@@ -72,6 +63,7 @@ async function loadMessages() {
   scrollToBottom();
 }
 
+
 // ================================
 // DISPLAY MESSAGE
 // ================================
@@ -79,24 +71,30 @@ async function loadMessages() {
 function displayMessage(message) {
   const messageDiv = document.createElement("div");
   const type =
-   message.sender_id === currentUser.id
-    ? "sent"
-    : "received";
+    message.sender_id === currentUser.id
+      ? "sent"
+      : "received";
+
   messageDiv.classList.add("message", type);
+
   const textElement = document.createElement("p");
   textElement.classList.add("message-text");
   textElement.textContent = message.message;
+
   const timeElement = document.createElement("span");
   timeElement.classList.add("message-time");
+
   const date = new Date(message.created_at);
+
   timeElement.textContent =
     date.toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit"
     });
-  
+
   messageDiv.appendChild(textElement);
   messageDiv.appendChild(timeElement);
+
   chatMessages.appendChild(messageDiv);
 }
 
@@ -104,245 +102,238 @@ function displayMessage(message) {
 // SEND MESSAGE
 // ================================
 
-chatForm.addEventListener("submit", async function(event) {
+chatForm.addEventListener("submit", async function(event){
   event.preventDefault();
-  const text = messageInput.value.trim();
-  if (!text) {
+
+  if (!currentUser || !otherUser) {
+    console.log("User not ready");
     return;
   }
+
+  const text = messageInput.value.trim();
+  if (!text) return;
+
   const { error } = await supabaseClient
-  .from("messages")
-  .insert({
-    sender: currentUser.id,
-    sender_id: currentUser.id,
-    receiver_id: otherUser,
-    message: text
-  });
-  if (error) {
-    console.error("Error sending message:", error);
-    alert("Message could not be sent.");
+    .from("messages")
+    .insert({
+      sender: currentUser.id,
+      sender_id: currentUser.id,
+      receiver_id: otherUser,
+      message: text
+    });
+
+
+  if(error){
+    console.error("Send Message Error:", error);
     return;
   }
   messageInput.value = "";
 });
 
 // ================================
-// REAL-TIME CHAT
+// REALTIME CHAT
 // ================================
 
 supabaseClient
-  .channel("chat-room")
-  .on(
-    "postgres_changes",
-    {
-      event: "INSERT",
-      schema: "public",
-      table: "messages"
-    },
-    payload => {
-
-      const message = payload.new;
-
-      if (
-        (message.sender_id === currentUser?.id &&
-         message.receiver_id === otherUser) ||
-        (message.sender_id === otherUser &&
-         message.receiver_id === currentUser?.id)
-      ) {
-        displayMessage(message);
-        scrollToBottom();
-      }
+.channel("chat-room")
+.on(
+  "postgres_changes",
+  {
+    event: "INSERT",
+    schema: "public",
+    table: "messages"
+  },
+  payload => {
+    const message = payload.new;
+    if (
+      (message.sender_id === currentUser?.id &&
+       message.receiver_id === otherUser)
+      ||
+      (message.sender_id === otherUser &&
+       message.receiver_id === currentUser?.id)
+    ) {
+      displayMessage(message);
+      scrollToBottom();
     }
-  )
-  .subscribe();
-
-// ================================
-// SCROLL TO BOTTOM
-// ================================
-
-function scrollToBottom() {
-  chatMessages.scrollTop =
-    chatMessages.scrollHeight;
-}
+  }
+)
+.subscribe();
 
 // ================================
 // START CHAT
 // ================================
 
-async function startChat() {
-  const { data, error } = await supabaseClient.auth.getUser();
-  if (error || !data.user) {
-    window.location.replace("index.html");
-    return;
-  }
-  currentUser = data.user;
-
-    // Check user permission first
-  if (currentUser.id === USER_1) {
-    otherUser = USER_2;
-  } else if (currentUser.id === USER_2) {
-    otherUser = USER_1;
-  } else {
-    alert("Unauthorized user");
-    return;
-  }
-
-// Check existing session
-
-const { data: oldSession, error: sessionError } = await supabaseClient
-  .from("active_sessions")
-  .select("*")
-  .eq("user_id", currentUser.id)
-  .maybeSingle();
-
-if (sessionError) {
-  console.log("Session check error:", sessionError);
+async function startChat(){
+const {data,error} =
+await supabaseClient.auth.getUser();
+if(error || !data.user){
+window.location.replace("index.html");
+return;
 }
 
-// Generate new session id
+
+currentUser=data.user;
+if(currentUser.id===USER_1){
+otherUser=USER_2;
+}
+else if(currentUser.id===USER_2){
+otherUser=USER_1;
+}
+else{
+alert("Unauthorized user");
+return;
+}
+
+
+
+// create new session
+
 const newSessionId = crypto.randomUUID();
+const {data:oldSession,error:sessionError}
+=
+await supabaseClient
+.from("active_sessions")
+.select("*")
+.eq("user_id",currentUser.id)
+.maybeSingle();
 
-if (oldSession) {
-
-  // Replace old session with new session
-  const { error: updateError } = await supabaseClient
-    .from("active_sessions")
-    .update({
-      session_id: newSessionId,
-      login_time: new Date().toISOString(),
-      last_seen: new Date().toISOString()
-    })
-    .eq("user_id", currentUser.id);
-
-  if (updateError) {
-    console.log(updateError);
-    alert("Unable to update session");
-    return;
-  }
-
-} else {
-
-  // First login
-  const { error: insertError } = await supabaseClient
-    .from("active_sessions")
-    .insert({
-      user_id: currentUser.id,
-      session_id: newSessionId,
-      login_time: new Date().toISOString(),
-      last_seen: new Date().toISOString()
-    });
-
-  if (insertError) {
-    console.log(insertError);
-    alert("Unable to create session");
-    return;
-  }
+if(sessionError){
+console.log(sessionError);
 }
 
-localStorage.setItem("session_id", newSessionId);
+// update old session
 
+if(oldSession){
+const {error:updateError}
+=
+await supabaseClient
+.from("active_sessions")
+.update({
+session_id:newSessionId,
+login_time:new Date().toISOString(),
+last_seen:new Date().toISOString()
+})
+.eq("user_id",currentUser.id);
+
+if(updateError){
+console.log(updateError);
+return;
+}
+}
+
+else{
+const {error:insertError}
+=
+await supabaseClient
+.from("active_sessions")
+.insert({
+user_id:currentUser.id,
+session_id:newSessionId,
+login_time:new Date().toISOString(),
+last_seen:new Date().toISOString()
+});
+
+if(insertError){
+console.log(insertError);
+return;
+}
+}
+localStorage.setItem(
+"session_id",
+newSessionId
+);
 startHeartbeat();
-startAutoLogout();
 loadMessages();
+}
+startChat();
 
-//===================================
-// LOG OUT 
-//===================================
+// ================================
+// HEARTBEAT
+// ================================
 
-async function logout() {
-    console.log("LOGOUT CALLED FROM:", new Error().stack);
-    if (!currentUser) {
-  await supabaseClient.auth.signOut();
-  localStorage.removeItem("session_id");
-  window.location.replace("index.html");
-  return;
+function startHeartbeat(){
+setInterval(async()=>{
+const mySession =
+localStorage.getItem("session_id");
+
+if(!mySession) return;
+const {data,error}
+=
+await supabaseClient
+.from("active_sessions")
+.select("session_id")
+.eq("user_id",currentUser.id)
+.single();
+
+if(error){
+console.log(error);
+return;
 }
 
-console.log("Current User:", currentUser.id);
-    const { data, error } = await supabaseClient
-        .from("active_sessions")
-        .select("*")
-        .eq("user_id", currentUser.id);
-    console.log("Before Delete:", data);
-    console.log("Select Error:", error);
-    const { error: deleteError } = await supabaseClient
-        .from("active_sessions")
-        .delete()
-        .eq("session_id", localStorage.getItem("session_id"));
+// another login detected
 
-    console.log("Delete Error:", deleteError);
-    await supabaseClient.auth.signOut();
-    localStorage.removeItem("session_id");
-    window.location.replace("index.html");
+if(data.session_id !== mySession){
+alert("This account is logged in somewhere else");
+await supabaseClient.auth.signOut();
+localStorage.removeItem("session_id");
+window.location.replace("index.html");
+return;
 }
 
-//===================================
-// AUTO LOGOUT AFTER 1 MINUTE
-//===================================
-
-/*setTimeout(async () => {
-    await supabaseClient.auth.signOut();
-    window.location.href = "index.html";
-}, 90000);*/
-
-//===================================
-// AUTO DELETE CHAT FROM DATABASE
-//===================================
-
-setInterval(async () => {
-    const { error } = await supabaseClient
-        .from("messages")
-        .delete()
-        .neq("id", 0);
-    if (error) {
-        console.error("Delete Error:", error);
-    } else {
-        console.log("All messages deleted from database");
-        chatMessages.innerHTML = "";
-    }
-}, 60000); // 1 minute
-
-//===================================
-// Auto close session after browser close
-//===================================
-
-function startHeartbeat() {
-  setInterval(async () => {
-    const sessionId = localStorage.getItem("session_id");
-    if (!sessionId) {
-      console.log("No session ID found");
-      return;
-    }
-    const { data, error } = await supabaseClient
-      .from("active_sessions")
-      .update({
-        last_seen: new Date().toISOString()
-      })
-      .eq("session_id", sessionId)
-      .select();
-
-    if (error) {
-      console.log("Heartbeat Error:", error);
-    } else {
-      console.log("Heartbeat Updated:", data);
-    }
-  }, 30000); // every 30 seconds
+await supabaseClient
+.from("active_sessions")
+.update({
+last_seen:new Date().toISOString()
+})
+.eq("session_id",mySession);
+},30000);
 }
 
-function startAutoLogout() {
-  setInterval(async () => {
-    if (!currentUser) return;
-    const { data } = await supabaseClient
-      .from("active_sessions")
-      .select("last_seen")
-      .eq("session_id", localStorage.getItem("session_id"))
-      .single();
-    if (!data) return;
-    const diffSeconds =
-      (new Date() - new Date(data.last_seen)) / 1000;
-    if (diffSeconds > 300) {
-      alert("Session expired");
-      await logout();
-    }
-  }, 60000);
+// ================================
+// LOGOUT
+// ================================
+
+async function logout(){
+const sessionId =
+localStorage.getItem("session_id");
+
+if(sessionId){
+await supabaseClient
+.from("active_sessions")
+.delete()
+.eq("session_id",sessionId);
+}
+    
+await supabaseClient.auth.signOut();
+localStorage.removeItem("session_id");
+window.location.replace("index.html");
+}
+
+// ================================
+// AUTO DELETE CHAT
+// ================================
+
+setInterval(async()=>{
+const {error}=
+await supabaseClient
+.from("messages")
+.delete()
+.neq("id",0);
+   
+if(error){
+console.log(error);
+}
+else{
+chatMessages.innerHTML="";
+console.log("Messages deleted");
+}
+},60000);
+
+// ================================
+// SCROLL
+// ================================
+
+function scrollToBottom(){
+chatMessages.scrollTop =
+chatMessages.scrollHeight;
 }
