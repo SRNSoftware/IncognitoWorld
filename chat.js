@@ -187,9 +187,7 @@ async function startChat() {
     return;
   }
 
-// Check active session
-    
-// Check old active session
+// Check existing session
 
 const { data: oldSession, error: sessionError } = await supabaseClient
   .from("active_sessions")
@@ -200,37 +198,52 @@ const { data: oldSession, error: sessionError } = await supabaseClient
 if (sessionError) {
   console.log("Session check error:", sessionError);
 }
-if (oldSession) {
-  alert("Already logged in on another device");
-  window.location.replace("index.html");
-  return;
-}
 
-// Create new session
-
+// Generate new session id
 const newSessionId = crypto.randomUUID();
 
-const { error: insertError } = await supabaseClient
-  .from("active_sessions")
-  .insert({
-  user_id: currentUser.id,
-  session_id: newSessionId,
-  login_time: new Date().toISOString(),
-  last_seen: new Date().toISOString()
-});
+if (oldSession) {
 
-if (insertError) {
-  console.log("Insert Error:", insertError);
-  alert("Unable to create session");
-  return;
+  // Replace old session with new session
+  const { error: updateError } = await supabaseClient
+    .from("active_sessions")
+    .update({
+      session_id: newSessionId,
+      login_time: new Date().toISOString(),
+      last_seen: new Date().toISOString()
+    })
+    .eq("user_id", currentUser.id);
+
+  if (updateError) {
+    console.log(updateError);
+    alert("Unable to update session");
+    return;
+  }
+
+} else {
+
+  // First login
+  const { error: insertError } = await supabaseClient
+    .from("active_sessions")
+    .insert({
+      user_id: currentUser.id,
+      session_id: newSessionId,
+      login_time: new Date().toISOString(),
+      last_seen: new Date().toISOString()
+    });
+
+  if (insertError) {
+    console.log(insertError);
+    alert("Unable to create session");
+    return;
+  }
 }
+
 localStorage.setItem("session_id", newSessionId);
-startHeartbeat();  
-startAutoLogout();    
- // Open chat only after session success
-loadMessages(); 
-}
-startChat();
+
+startHeartbeat();
+startAutoLogout();
+loadMessages();
 
 //===================================
 // LOG OUT 
