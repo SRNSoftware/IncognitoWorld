@@ -238,6 +238,7 @@ localStorage.setItem(
 newSessionId
 );
 startHeartbeat();
+startSessionListener();
 loadMessages();
 }
 startChat();
