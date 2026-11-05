@@ -6,7 +6,7 @@
 }
 
 body {
-    background: #1B1514;
+    background: transparent;
     height: 100vh;
     margin: 0;
     display: flex;
