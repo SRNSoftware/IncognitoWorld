@@ -2,17 +2,12 @@
 // SUPABASE CONFIGURATION
 // ================================
 
-const SUPABASE_URL =
-  "https://eoglnncvacmzbrgdfwyv.supabase.co";
-
-const SUPABASE_KEY =
-  "sb_publishable_K-1QCrNIPG29Cq73uuIyqg_O2vt2zh0";
-
+const SUPABASE_URL = "https://eoglnncvacmzbrgdfwyv.supabase.co";
+const SUPABASE_KEY = "sb_publishable_K-1QCrNIPG29Cq73uuIyqg_O2vt2zh0";
 const supabaseClient = window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY
 );
-
 
 // ================================
 // USER IDS
@@ -290,10 +285,7 @@ last_seen:new Date().toISOString()
 // ================================
 
 function startSessionListener() {
-
   const mySessionId = localStorage.getItem("session_id");
-
-
   supabaseClient
     .channel("session-monitor")
     .on(
@@ -305,32 +297,16 @@ function startSessionListener() {
         filter: `user_id=eq.${currentUser.id}`
       },
       async (payload) => {
-
-
         const newSessionId = payload.new.session_id;
-
-
         if (newSessionId !== mySessionId) {
-
-
           alert("This account is logged in somewhere else");
-
-
           await supabaseClient.auth.signOut();
-
-
           localStorage.removeItem("session_id");
-
-
           window.location.replace("index.html");
-
-
         }
-
       }
     )
     .subscribe();
-
 }
 
 // ================================
