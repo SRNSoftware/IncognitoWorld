@@ -5,3 +5,11 @@ function toggleMenu(){
 window.addEventListener("load", function(){
     document.body.classList.add("loaded");
 });
+
+function openLogin() {
+    document.getElementById("loginOverlay").style.display = "flex";
+}
+
+function closeLogin() {
+    document.getElementById("loginOverlay").style.display = "none";
+}
