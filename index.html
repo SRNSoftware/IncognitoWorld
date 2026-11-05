@@ -30,8 +30,8 @@
     </nav>
 
    
-    <a href="login.html" class="sign-btn">
-        SIGN IN
+    <a href="#" class="sign-btn" onclick="openLogin()">
+       SIGN IN
     </a>
 
 <div class="mobile-nav" id="mobileNav">
@@ -70,6 +70,15 @@
 
 </section>
 
+<div id="loginOverlay" class="login-overlay">
+    <div class="login-box">
+        <span class="close-btn" onclick="closeLogin()">×</span>
+        <h2>Sign In</h2>
+        <input type="email" placeholder="Email">
+        <input type="password" placeholder="Password">
+        <button>Sign In</button>
+    </div>
+</div>
 
 <script src="script.js"></script>
 
