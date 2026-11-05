@@ -13,3 +13,6 @@ function openLogin() {
 function closeLogin() {
     document.getElementById("loginOverlay").style.display = "none";
 }
+function openLogin() {
+    alert("Login clicked");
+}
