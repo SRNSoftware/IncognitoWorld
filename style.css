@@ -261,13 +261,12 @@ nav a:hover{
 
 
 .login-overlay iframe {
-    width: min(400px, 90vw);
-    height: min(500px, 80vh);
+    width: 400px;
+    height: 500px;
     border: none;
     background: transparent;
     display: block;
 }
-
 /* =========================
    TABLET
 ========================= */
