@@ -252,6 +252,7 @@ nav a:hover{
     inset: 0;
     background: rgba(0,0,0,0.35);
     backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     z-index: 9999;
 
     justify-content: center;
@@ -264,6 +265,7 @@ nav a:hover{
     height: 500px;
     border: none;
     background: transparent;
+    display: block;
 }
 
 /* =========================
