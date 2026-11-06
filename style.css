@@ -1,4 +1,4 @@
-*{
+	*{
     margin:0;
     padding:0;
     box-sizing:border-box;
@@ -51,7 +51,7 @@ body::before{
     background:
     radial-gradient(
         circle at 20% 20%,
-        rgba(255,255,255,0.06), 
+        rgba(255,255,255,0.06),
         transparent 25%
     ),
 
@@ -246,27 +246,6 @@ nav a:hover{
     display:none;
 }
 
-.login-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.35);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    z-index: 9999;
-
-    justify-content: center;
-    align-items: center;
-}
-
-
-.login-overlay iframe {
-    width: 400px;
-    height: 500px;
-    border: none;
-    background: transparent;
-    display: block;
-}
 /* =========================
    TABLET
 ========================= */
@@ -432,14 +411,6 @@ nav a:hover{
         padding:13px 30px;
         font-size:12px;
         letter-spacing:1.5px;
-    }
-
-    .login-overlay iframe{
-        width: 100%;
-        max-width: 350px;
-        height: 500px;
-        background: transparent;
-        display: block;
     }
 }
 
