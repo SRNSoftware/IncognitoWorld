@@ -66,6 +66,6 @@ async function login() {
         message.style.color = "red";
         message.innerText = error.message;
     } else {
-        window.location.replace("chat.html");
+        window.top.location.replace("chat.html");
     }
 }
