@@ -66,8 +66,6 @@ async function login() {
         message.style.color = "red";
         message.innerText = error.message;
     } else {
-        console.log("LOGIN SUCCESS - REDIRECTING");
-        alert("Login Success");
         window.top.location.href = "chat.html";
     }
 }
