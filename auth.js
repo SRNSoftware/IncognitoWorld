@@ -62,16 +62,10 @@ async function login() {
         password: password
     });
 
-
     if (error) {
         message.style.color = "red";
         message.innerText = error.message;
-
     } else {
-        message.style.color = "green";
-        message.innerText = "Login Successful";
-        setTimeout(() => {
-            window.location.href = "chat.html";
-        }, 3000);
+        window.location.replace("chat.html");
     }
 }
