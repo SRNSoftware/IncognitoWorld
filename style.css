@@ -261,8 +261,8 @@ nav a:hover{
 
 
 .login-overlay iframe {
-    width: 400px;
-    height: 500px;
+    width: min(400px, 90vw);
+    height: min(500px, 80vh);
     border: none;
     background: transparent;
     display: block;
