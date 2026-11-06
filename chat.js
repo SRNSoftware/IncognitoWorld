@@ -299,6 +299,7 @@ function startSessionListener() {
       async (payload) => {
         const newSessionId = payload.new.session_id;
         if (newSessionId !== mySessionId) {
+          alert("This account is logged in somewhere else");
           await supabaseClient.auth.signOut();
           localStorage.removeItem("session_id");
           window.location.replace("index.html");
