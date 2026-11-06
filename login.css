@@ -5,6 +5,10 @@
 	font-family:'Poppins', sans-serif;
 }
 
+html {
+    background: transparent;
+}
+
 html, body {
     background: transparent;
     width: 100%;
