@@ -434,6 +434,12 @@ nav a:hover{
         font-size:12px;
         letter-spacing:1.5px;
     }
+
+    .login-overlay{
+        background:rgba(0,0,0,0.35);
+        backdrop-filter:blur(6px);
+        -webkit-backdrop-filter:blur(6px);
+    }
 }
 
 
