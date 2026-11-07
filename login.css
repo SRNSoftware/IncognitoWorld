@@ -6,163 +6,307 @@
 }
 
 
+/* Body */
 body {
+
     height: 100vh;
+
     display: flex;
     justify-content: center;
     align-items: center;
+
     background: url("background.png") center/cover no-repeat fixed;
+
     position: relative;
+
     overflow: hidden;
 }
 
 
-/* Only background blur */
+
+/* Only Background Blur */
 body::before {
+
     content: "";
+
     position: absolute;
+
     inset: -20px;
+
     background: inherit;
+
     filter: blur(8px);
 
     z-index: 0;
 }
 
 
+
 /* Login Box */
 .login-box {
 
     position: relative;
+
     z-index: 1;
+
+
     width: 350px;
+
     max-width: 90%;
+
+
     background: rgba(25, 22, 20, 0.82);
+
+
     padding: 25px;
+
+
     text-align: center;
+
+
     border: 1px solid rgba(218,165,70,0.35);
+
+
     border-radius: 18px;
+
+
     backdrop-filter: blur(12px);
+
     -webkit-backdrop-filter: blur(12px);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+
+
+    box-shadow:
+
+    0 15px 40px rgba(0,0,0,0.6);
+
 }
+
 
 
 /* Heading */
 .login-box h2 {
+
     color: #f5d58a;
+
     margin-bottom: 25px;
+
     font-weight: 600;
+
 }
 
 
 
 /* Input Fields */
 input {
+
     width: 100%;
+
     padding: 11px;
+
     margin: 8px 0;
+
+
     border-radius: 10px;
+
+
     border: 1px solid rgba(218,165,70,0.35);
-    background: rgba(255,255,255,0.08);
+
+
+    background: rgba(25,22,20,0.45);
+
+
     color: white;
+
+
     outline: none;
+
+
     transition: 0.3s;
+
 }
+
 
 
 input::placeholder {
+
     color: #c8b99a;
+
 }
 
 
+
 input:focus {
+
     border-color: #e6b85c;
+
+
     box-shadow:
+
     0 0 8px rgba(230,184,92,0.4);
+
+}
+
+
+
+/* Autofill Fix (Mobile Chrome/Safari) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+
+
+    background-color: transparent !important;
+
+
+    -webkit-box-shadow:
+
+    0 0 0 1000px rgba(25,22,20,0.82) inset !important;
+
+
+    -webkit-text-fill-color: white !important;
+
+
+    caret-color: white !important;
+
+
+    transition:
+
+    background-color 9999s ease-in-out 0s;
+
 }
 
 
 
 /* Login Button */
 button {
+
+
     width: 100%;
+
+
     padding: 11px;
+
+
     margin-top: 10px;
+
+
     border: none;
+
+
     border-radius: 10px;
+
+
+
     background: linear-gradient(
+
         135deg,
+
         #b87333,
+
         #e6b85c
+
     );
 
+
+
     color: #1a1208;
+
+
     font-weight: 700;
+
+
     cursor: pointer;
+
+
     transition: 0.3s;
+
 }
 
 
+
 button:hover {
+
     opacity: 0.85;
+
     transform: translateY(-1px);
+
 }
 
 
 
 /* Error Message */
 #message {
+
+
     color: #ff8a65;
+
+
     font-size: 14px;
+
+
     margin-top: 12px;
+
 }
 
 
 
 /* Signup Text */
 p {
+
     margin-top: 18px;
+
+
     color: #ddd;
+
 }
 
 
 
 p a {
+
     color: #e6b85c;
+
+
     text-decoration: none;
+
+
     font-weight: 500;
+
 }
 
 
 
 p a:hover {
+
     text-decoration: underline;
+
 }
 
 
 
 /* Mobile */
 @media screen and (max-width:480px) {
+
+
     body {
+
         padding: 20px;
+
     }
+
+
 
     .login-box {
+
+
         width: 100%;
+
+
         max-width: 350px;
+
+
         padding: 22px;
+
     }
-}
 
-/* Remove mobile browser autofill white background */
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-
-    -webkit-box-shadow: 0 0 0 1000px rgba(25, 22, 20, 0.82) inset !important;
-
-    -webkit-text-fill-color: white !important;
-
-    transition: background-color 9999s ease-in-out 0s;
 }
