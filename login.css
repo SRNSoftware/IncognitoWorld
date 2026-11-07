@@ -5,6 +5,7 @@
     font-family: 'Poppins', sans-serif;
 }
 
+
 body {
     height: 100vh;
     display: flex;
@@ -16,6 +17,7 @@ body {
     position: relative;
     overflow: hidden;
 }
+
 
 /* Only background blur */
 body::before {
@@ -29,119 +31,187 @@ body::before {
     z-index: 0;
 }
 
+
 /* Login Box */
 .login-box {
+
     position: relative;
     z-index: 1;
 
     width: 350px;
     max-width: 90%;
 
-    background: #ffffff;
+    background: rgba(25, 22, 20, 0.82);
 
     padding: 25px;
+
     text-align: center;
 
-    border: 1px solid #dddddd;
+    border: 1px solid rgba(218,165,70,0.35);
+
     border-radius: 18px;
 
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,0.6);
 }
 
+
+/* Heading */
 .login-box h2 {
-    color: #222;
+
+    color: #f5d58a;
+
     margin-bottom: 25px;
+
+    font-weight: 600;
 }
+
+
 
 /* Input Fields */
 input {
+
     width: 100%;
+
     padding: 11px;
 
     margin: 8px 0;
 
-    border: 1px solid #cccccc;
+
     border-radius: 10px;
 
-    background: #ffffff;
-    color: #222;
+    border: 1px solid rgba(218,165,70,0.35);
+
+
+    background: rgba(255,255,255,0.08);
+
+    color: white;
 
     outline: none;
+
+    transition: 0.3s;
 }
+
 
 input::placeholder {
-    color: #888;
+
+    color: #c8b99a;
 }
+
 
 input:focus {
-    border-color: #6C63FF;
+
+    border-color: #e6b85c;
+
+    box-shadow:
+    0 0 8px rgba(230,184,92,0.4);
 }
 
-/* Button */
+
+
+/* Login Button */
 button {
+
     width: 100%;
 
     padding: 11px;
+
     margin-top: 10px;
 
+
     border: none;
+
     border-radius: 10px;
 
-    background: #6C63FF;
 
-    color: white;
-    font-weight: 600;
+    background: linear-gradient(
+        135deg,
+        #b87333,
+        #e6b85c
+    );
+
+
+    color: #1a1208;
+
+    font-weight: 700;
 
     cursor: pointer;
 
     transition: 0.3s;
 }
 
+
 button:hover {
+
     opacity: 0.85;
+
+    transform: translateY(-1px);
 }
+
+
 
 /* Error Message */
 #message {
-    color: #e53935;
+
+    color: #ff8a65;
 
     font-size: 14px;
 
     margin-top: 12px;
 }
 
+
+
 /* Signup Text */
 p {
+
     margin-top: 18px;
 
-    color: #444;
+    color: #ddd;
 }
 
+
+
 p a {
-    color: #6C63FF;
+
+    color: #e6b85c;
 
     text-decoration: none;
 
     font-weight: 500;
 }
 
+
+
 p a:hover {
+
     text-decoration: underline;
 }
+
 
 
 /* Mobile */
 @media screen and (max-width:480px) {
 
+
     body {
+
         padding: 20px;
+
     }
+
 
     .login-box {
 
         width: 100%;
+
         max-width: 350px;
 
         padding: 22px;
+
     }
+
 }
