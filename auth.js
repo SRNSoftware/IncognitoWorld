@@ -1,8 +1,5 @@
-const SUPABASE_URL =
-  "https://eoglnncvacmzbrgdfwyv.supabase.co";
-
-const SUPABASE_KEY =
-  "sb_publishable_K-1QCrNIPG29Cq73uuIyqg_O2vt2zh0";
+const SUPABASE_URL = "https://eoglnncvacmzbrgdfwyv.supabase.co";
+const SUPABASE_KEY = "sb_publishable_K-1QCrNIPG29Cq73uuIyqg_O2vt2zh0";
 
 const supabaseClient = window.supabase.createClient(
   SUPABASE_URL,
@@ -22,17 +19,6 @@ async function signup() {
         password: password
     });
 
-
-    /*if (error) {
-        console.error(error);
-        message.style.color = "red";
-        message.innerText = error.message;
-    } else {
-        console.log(data);
-        message.style.color = "green";
-        message.innerText = "Signup successful! Please check your email.";
-    }*/
-
     if (error) {
     console.error(error);
     message.style.color = "red";
@@ -43,12 +29,11 @@ async function signup() {
         message.innerText = error.message;
     }
 
-} else {
-    console.log(data);
-    message.style.color = "green";
-    message.innerText = "Signup successful! Please check your email.";
-}
-
+    } else {
+        console.log(data);
+        message.style.color = "green";
+        message.innerText = "Signup successful! Please check your email.";
+    }
 }
 
 // Login Function
