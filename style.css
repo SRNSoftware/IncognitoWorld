@@ -381,10 +381,17 @@ nav a:hover{
     }
 
     html,
-    body{
+        body{
         width:100%;
-        height:100%;
-        overflow:hidden;
+        min-height:100%;
+        overflow-x:hidden;
+        overflow-y:auto;
+        scrollbar-width:none; /* Firefox */
+    }
+
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar{
+        display:none; /* Chrome, Android, Safari */
     }
 
     .hero{
