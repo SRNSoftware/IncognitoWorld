@@ -49,7 +49,16 @@ async function login() {
 
     if (error) {
         message.style.color = "red";
-        message.innerText = error.message;
+
+        if (error.message === "missing email or phone") {
+            message.innerText = "Please enter your email address";
+        } 
+        else if (error.message === "Invalid login credentials") {
+            message.innerText = "Wrong email or password";
+        } 
+        else {
+            message.innerText = error.message;
+        }
     } else {
         window.top.location.href = "chat.html";
     }
