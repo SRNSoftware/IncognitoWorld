@@ -51,10 +51,10 @@ async function login() {
         message.style.color = "red";
 
         if (error.message === "missing email or phone") {
-            message.innerText = "Please enter your email address";
+            message.innerText = "Invalid username or password";
         } 
         else if (error.message === "Invalid login credentials") {
-            message.innerText = "Wrong email or password";
+            message.innerText = "Invalid username or password";
         } 
         else {
             message.innerText = error.message;
