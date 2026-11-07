@@ -2,11 +2,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-	font-family:'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 body {
-    background: #1B1514;
+    background: #f5f5f5;
     height: 100vh;
     margin: 0;
     display: flex;
@@ -16,15 +16,17 @@ body {
 
 .login-box {
     width: 350px;
-    background: #241b1a;
+    max-width: 90%;
+    background: #ffffff;
     padding: 25px;
     text-align: center;
-    border: 1px solid #3A2E2B;
+    border: 1px solid #dddddd;
     border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
 .login-box h2 {
-    color: #fff;
+    color: #222;
     margin-bottom: 25px;
 }
 
@@ -32,16 +34,21 @@ input {
     width: 100%;
     padding: 11px;
     margin: 8px 0;
-    box-sizing: border-box;
-    border: 1px solid #3A2E2B;
+    border: 1px solid #cccccc;
     border-radius: 10px;
-    background: #1B1514;
-    color: white;
+    background: #ffffff;
+    color: #222;
     outline: none;
+    transition: 0.3s ease;
+}
+
+input::placeholder {
+    color: #888;
 }
 
 input:focus {
     border-color: #6C63FF;
+    box-shadow: 0 0 6px rgba(108, 99, 255, 0.2);
 }
 
 button {
@@ -51,39 +58,50 @@ button {
     border: none;
     border-radius: 10px;
     background: #6C63FF;
-    color: white;
-    font-weight: bold;
+    color: #ffffff;
+    font-weight: 600;
     cursor: pointer;
+    transition: 0.3s ease;
 }
 
 button:hover {
-    opacity: 0.85;
+    background: #5b54e6;
 }
 
 #message {
-    color: #ff6b6b;
+    color: #e53935;
     font-size: 14px;
     margin-top: 12px;
 }
+
 p {
     margin-top: 18px;
-    color: white;
+    color: #444;
 }
+
 p a {
     color: #6C63FF;
     text-decoration: none;
+    font-weight: 500;
 }
 
 p a:hover {
     text-decoration: underline;
 }
-@media screen and (max-width:480px){
+
+@media screen and (max-width: 480px) {
+    body {
+        padding: 20px;
+    }
+
     .login-box {
-    width: 350px;
-    max-width: 90%;
-    padding: 25px;
-    background: #241b1a;
-    border: 1px solid #3A2E2B;
-    border-radius: 18px;
-}
+        width: 100%;
+        max-width: 350px;
+        padding: 22px;
+    }
+
+    input,
+    button {
+        padding: 12px;
+    }
 }
