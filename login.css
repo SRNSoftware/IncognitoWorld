@@ -153,3 +153,16 @@ p a:hover {
         padding: 22px;
     }
 }
+
+/* Remove mobile browser autofill white background */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+
+    -webkit-box-shadow: 0 0 0 1000px rgba(25, 22, 20, 0.82) inset !important;
+
+    -webkit-text-fill-color: white !important;
+
+    transition: background-color 9999s ease-in-out 0s;
+}
