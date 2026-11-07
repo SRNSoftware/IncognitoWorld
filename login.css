@@ -11,21 +11,21 @@ body {
     justify-content: center;
     align-items: center;
 
-    /* Background Image */
-    background: url("background.png") center/cover no-repeat fixed;
+    background: url("background.jpg") center/cover no-repeat fixed;
 
     position: relative;
     overflow: hidden;
 }
 
-/* Blur Overlay */
+/* Only background blur */
 body::before {
     content: "";
     position: absolute;
-    inset: 0;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    background: rgba(255, 255, 255, 0.2);
+    inset: -20px;
+
+    background: inherit;
+    filter: blur(8px);
+
     z-index: 0;
 }
 
@@ -36,15 +36,16 @@ body::before {
 
     width: 350px;
     max-width: 90%;
-    padding: 28px;
 
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    border-radius: 18px;
+    background: #ffffff;
 
+    padding: 25px;
     text-align: center;
 
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.18);
+    border: 1px solid #dddddd;
+    border-radius: 18px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 
 .login-box h2 {
@@ -52,16 +53,20 @@ body::before {
     margin-bottom: 25px;
 }
 
+/* Input Fields */
 input {
     width: 100%;
     padding: 11px;
+
     margin: 8px 0;
-    border: 1px solid #d5d5d5;
+
+    border: 1px solid #cccccc;
     border-radius: 10px;
-    outline: none;
-    background: #fff;
+
+    background: #ffffff;
     color: #222;
-    transition: .3s;
+
+    outline: none;
 }
 
 input::placeholder {
@@ -70,40 +75,53 @@ input::placeholder {
 
 input:focus {
     border-color: #6C63FF;
-    box-shadow: 0 0 6px rgba(108, 99, 255, .25);
 }
 
+/* Button */
 button {
     width: 100%;
+
     padding: 11px;
     margin-top: 10px;
+
     border: none;
     border-radius: 10px;
+
     background: #6C63FF;
-    color: #fff;
+
+    color: white;
     font-weight: 600;
+
     cursor: pointer;
-    transition: .3s;
+
+    transition: 0.3s;
 }
 
 button:hover {
-    background: #5b54e6;
+    opacity: 0.85;
 }
 
+/* Error Message */
 #message {
     color: #e53935;
+
     font-size: 14px;
+
     margin-top: 12px;
 }
 
+/* Signup Text */
 p {
     margin-top: 18px;
+
     color: #444;
 }
 
 p a {
     color: #6C63FF;
+
     text-decoration: none;
+
     font-weight: 500;
 }
 
@@ -111,9 +129,19 @@ p a:hover {
     text-decoration: underline;
 }
 
-@media (max-width: 480px) {
+
+/* Mobile */
+@media screen and (max-width:480px) {
+
+    body {
+        padding: 20px;
+    }
+
     .login-box {
-        width: 90%;
+
+        width: 100%;
+        max-width: 350px;
+
         padding: 22px;
     }
 }
