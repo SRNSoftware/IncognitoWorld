@@ -1,174 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Bootstrap Theme</title>
+<title>SpiHub</title>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-
 <style>
-    body {
-        font: 20px Montserrat, sans-serif;
-        line-height: 1.8;
-        color: white;
-        background-image: url("bg_img-1.png");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-    }
-    
-    /* Transparent Navbar */
-    
-    .navbar {
-        position: absolute;
-        width:100%;
-        z-index:999;
-        padding-top:15px;
-        padding-bottom:15px;
-        margin-bottom:0;
-        background:transparent;
-        border:none;
-    }
-    .navbar-default {
-        background-color: transparent;
-        border:none;
-    }
-    .navbar-default .navbar-brand,
-    .navbar-default .navbar-nav > li > a {
-        color:white;
-    }
-    .navbar-default .navbar-nav > li > a:hover {
-        color:#1abc9c;
-    }
-    
-    /* Sections */
-    .container-fluid {
-        padding-top:100px;
-        padding-bottom:70px;
-    }
-    .bg-1 {
-        background:rgba(26,188,156,0.7);
-        color:white;
-    }
-    .bg-2 {
-        background:rgba(71,78,93,0.7);
-        color:white;
-    }
-    .bg-3 {
-        background:rgba(255,255,255,0.8);
-        color:#555;
-    }
-    .bg-4 {
-        background:rgba(47,47,47,0.9);
-        color:white;
-    }
-    .margin {
-        margin-bottom:45px;
-    }
-    p {
-        font-size:16px;
-    }
+body{
+    font-family:Montserrat,sans-serif;
+    margin:0;
+}
+
+.navbar{
+    background:transparent!important;
+    border:0;
+    position:absolute;
+    width:100%;
+    z-index:10;
+    letter-spacing:5px;
+}
+
+.navbar-brand,
+.navbar-nav li a{
+    color:white!important;
+}
+
+.navbar-brand:hover,
+.navbar-nav li a:hover{
+    color:#1abc9c!important;
+}
+
+.hero{
+    height:100vh;
+    background-color:#1B1514;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+}
 </style>
+
 </head>
+
 <body>
+
 <!-- Navbar -->
-
 <nav class="navbar navbar-default">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Me</a>
-        </div>
-    
-        <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">WHO</a></li>
-                <li><a href="#">WHAT</a></li>
-                <li><a href="#">WHERE</a></li>
-            </ul>
-        </div>
-    </div>
+<div class="container">
+
+<div class="navbar-header">
+<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+
+<a class="navbar-brand" href="#">SpiHub</a>
+</div>
+
+<div class="collapse navbar-collapse" id="myNavbar">
+<ul class="nav navbar-nav navbar-right">
+<li><a href="#">HOME</a></li>
+<li><a href="#">POST</a></li>
+<li><a href="#">CONTACT US</a></li>
+<li><a href="#">SIGN IN</a></li>
+</ul>
+</div>
+
+</div>
 </nav>
-    
-<!-- First Section -->
-<div class="container-fluid bg-1 text-center">
-    <h3 class="margin">Who Am I?</h3>
-    <img src="img1.jpg" style="display:inline" width="350" height="350">
-    <h3>I'm an adventurer</h3>
+
+<!-- Hero Section -->
+<div class="hero text-center">
+<div>
+<h1>KARMA</h1>
+<p>Action creates destiny</p>
 </div>
-
-<!-- Second Section -->
-<div class="container-fluid bg-2 text-center">
-    <h3 class="margin">What Am I?</h3>
-    <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-    <a href="#" class="btn btn-default btn-lg">
-        <span class="glyphicon glyphicon-search"></span>
-            Search
-    </a>
 </div>
-
-<!-- Third Section -->
-<div class="container-fluid bg-3 text-center">
-<h3 class="margin">
-Where To Find Me?
-</h3>
-<div class="row">
-<div class="col-sm-4">
-<img src="img1.jpg" 
-class="img-responsive margin"
-style="width:100%">
-</div>
-
-
-
-<div class="col-sm-4">
-
-<img src="img2.jpg"
-class="img-responsive margin"
-style="width:100%">
-
-</div>
-
-
-
-<div class="col-sm-4">
-
-<img src="img1.jpg"
-class="img-responsive margin"
-style="width:100%">
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
-
-
-<!-- Footer -->
-
-
-<footer class="container-fluid bg-4 text-center">
-
-<p>
-Bootstrap Theme
-</p>
-
-</footer>
-
-
 
 </body>
 </html>
