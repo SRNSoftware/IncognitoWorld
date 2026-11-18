@@ -53,8 +53,16 @@
             line-height:1.9;
             font-size:clamp(13px, 1.5vw, 16px);
         }
-    
-    
+        .navbar a:focus,
+        .navbar button:focus,
+        .sign-btn:focus {
+            outline: none;
+            box-shadow: none;
+        }
+        .hamburger:focus {
+            outline: none;
+            border: none;
+        }
         @media (max-width: 480px) {
             .hero h1{
                 font-size: 50px;
