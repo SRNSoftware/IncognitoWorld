@@ -1,42 +1,187 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>SpiHub - Coming Soon</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<html>
-<title>W3.CSS Coming Soon Template</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/6/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700&display=swap" rel="stylesheet">
 
-<style>
-body,h1 {font-family:"Raleway",sans-serif}
-body,html {height:100%}
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
 
-.bgimg {
-  background-image:url('bg_img-1.png');
-  min-height:100%;
-  background-position:center;
-  background-size:cover;
-}
-</style>
+        html,
+        body{
+            width:100%;
+            height:100%;
+            font-family:"Raleway",sans-serif;
+        }
+
+        body{
+            background:url("bg_img-1.png") center center/cover no-repeat;
+            color:#fff;
+            overflow:hidden;
+        }
+
+        .overlay{
+            position:relative;
+            width:100%;
+            height:100vh;
+            background:rgba(0,0,0,.25);
+        }
+
+        /* Logo */
+        .logo{
+            position:absolute;
+            top:30px;
+            left:30px;
+            font-size:30px;
+            font-weight:600;
+            letter-spacing:2px;
+        }
+
+        /* Center Content */
+        .content{
+            position:absolute;
+            top:50%;
+            left:50%;
+            transform:translate(-50%,-50%);
+            text-align:center;
+            width:90%;
+            max-width:900px;
+            animation:fadeUp 1s ease;
+        }
+
+        .content h1{
+            font-size:70px;
+            font-weight:700;
+            letter-spacing:4px;
+            margin-bottom:25px;
+        }
+
+        .line{
+            width:220px;
+            height:2px;
+            background:#bdbdbd;
+            margin:0 auto 25px;
+        }
+
+        .countdown{
+            font-size:28px;
+            font-weight:400;
+        }
+
+        /* Footer */
+        .footer{
+            position:absolute;
+            bottom:30px;
+            left:30px;
+            font-size:18px;
+        }
+
+        .footer a{
+            color:#fff;
+            text-decoration:none;
+            border-bottom:1px solid #fff;
+        }
+
+        .footer a:hover{
+            opacity:.8;
+        }
+
+        @keyframes fadeUp{
+            from{
+                opacity:0;
+                transform:translate(-50%,-40%);
+            }
+            to{
+                opacity:1;
+                transform:translate(-50%,-50%);
+            }
+        }
+
+        /* Tablet */
+        @media(max-width:768px){
+
+            .logo{
+                font-size:24px;
+                top:20px;
+                left:20px;
+            }
+
+            .content h1{
+                font-size:42px;
+            }
+
+            .countdown{
+                font-size:22px;
+            }
+
+            .footer{
+                left:20px;
+                bottom:20px;
+                font-size:16px;
+            }
+
+            .line{
+                width:170px;
+            }
+
+        }
+
+        /* Mobile */
+        @media(max-width:480px){
+
+            .content h1{
+                font-size:30px;
+                letter-spacing:2px;
+            }
+
+            .countdown{
+                font-size:18px;
+            }
+
+            .logo{
+                font-size:20px;
+            }
+
+            .footer{
+                font-size:14px;
+            }
+
+            .line{
+                width:140px;
+            }
+
+        }
+
+    </style>
+</head>
 
 <body>
 
-<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+<div class="overlay">
 
-  <div class="w3-display-topleft w3-padding-large w3-xlarge">
-    Spihub
-  </div>
+    <div class="logo">
+        SpiHub
+    </div>
 
-  <div class="w3-display-middle">
-    <h1 class="w3-jumbo w3-animate-top">SPIRITUAL HUB</h1>
-    <hr class="w3-border-grey" style="margin:auto;width:40%">
-    <p class="w3-large w3-center">35 days left</p>
-  </div>
+    <div class="content">
+        <h1>SPIRITUAL HUB</h1>
 
-  <div class="w3-display-bottomleft w3-padding-large">
-    Powered by
-    <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a>
-  </div>
+        <div class="line"></div>
+
+        <p class="countdown">35 Days Left</p>
+    </div>
+
+    <div class="footer">
+        Powered by
+        <a href="#">SpiHub</a>
+    </div>
 
 </div>
 
