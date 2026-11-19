@@ -1,25 +1,308 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <title>SpiHub - Coming Soon</title>
+    <title>SpiHub - Spiritual Hub</title>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style222.css">
-    
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        html{
+            scroll-behavior:smooth;
+        }
+
+        body{
+            font-family:"Raleway",sans-serif;
+            background:#f4f4f4;
+            color:#333;
+        }
+
+        /* ================= HERO SECTION ================= */
+
+        .hero{
+            width:100%;
+            height:100vh;
+            background:url("bg_img-1.png") center/cover no-repeat;
+            position:relative;
+            color:white;
+        }
+
+        .overlay{
+            width:100%;
+            height:100%;
+            background:rgba(0,0,0,.35);
+            position:absolute;
+        }
+
+        .logo{
+            position:absolute;
+            top:30px;
+            left:30px;
+            font-size:30px;
+            font-weight:600;
+            letter-spacing:2px;
+        }
+
+        .hero-content{
+            position:absolute;
+            top:50%;
+            left:50%;
+            transform:translate(-50%,-50%);
+            text-align:center;
+            width:90%;
+        }
+
+        .hero-content h1{
+            font-size:70px;
+            letter-spacing:4px;
+            margin-bottom:25px;
+        }
+
+        .line{
+            width:220px;
+            height:2px;
+            background:white;
+            margin:auto;
+            margin-bottom:25px;
+        }
+
+        .countdown{
+            font-size:28px;
+        }
+
+        .footer{
+            position:absolute;
+            bottom:30px;
+            left:30px;
+            font-size:18px;
+        }
+
+        .footer a{
+            color:white;
+            text-decoration:none;
+        }
+
+
+        /* ================= HOLIDAY SECTION ================= */
+
+        .holiday-title{
+            text-align:center;
+            padding:40px 20px;
+        }
+
+        .holiday-title h2{
+            font-size:40px;
+            color:#009688;
+        }
+
+
+        .gallery{
+            max-width:1200px;
+            margin:auto;
+            padding:0 20px 50px;
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:30px;
+        }
+
+
+        .card{
+            background:white;
+            border-radius:10px;
+            overflow:hidden;
+            box-shadow:0 5px 15px rgba(0,0,0,.15);
+            transition:.3s;
+        }
+
+
+        .card:hover{
+            transform:translateY(-8px);
+        }
+
+
+        .card img{
+            width:100%;
+            display:block;
+        }
+
+
+        .card-content{
+            padding:20px;
+        }
+
+
+        .card-content h4{
+            font-size:22px;
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+
+        @media(max-width:768px){
+
+            .hero-content h1{
+                font-size:42px;
+            }
+
+            .logo{
+                font-size:24px;
+                top:20px;
+                left:20px;
+            }
+
+            .gallery{
+                grid-template-columns:repeat(2,1fr);
+            }
+
+            .countdown{
+                font-size:22px;
+            }
+
+        }
+
+
+        @media(max-width:480px){
+
+            .hero-content h1{
+                font-size:30px;
+                letter-spacing:2px;
+            }
+
+            .gallery{
+                grid-template-columns:1fr;
+            }
+
+            .holiday-title h2{
+                font-size:30px;
+            }
+
+            .footer{
+                font-size:14px;
+                left:20px;
+                bottom:20px;
+            }
+
+        }
+
+    </style>
+
 </head>
+
+
 <body>
-    <div class="overlay">
-        <div class="logo">SpiHub</div>
-        <div class="content">
-            <h1>SPIRITUAL HUB</h1>
-            <div class="line"></div>
-            <p class="countdown">35 Days Left</p>
-        </div>
-        <div class="footer">
-            Powered by
-            <a href="#">SpiHub</a>
-        </div>
+
+
+<!-- HERO SECTION -->
+
+<section class="hero">
+
+    <div class="overlay"></div>
+
+
+    <div class="logo">
+        SpiHub
     </div>
+
+
+    <div class="hero-content">
+
+        <h1>SPIRITUAL HUB</h1>
+
+        <div class="line"></div>
+
+        <p class="countdown">
+            35 Days Left
+        </p>
+
+    </div>
+
+
+    <div class="footer">
+        Powered by 
+        <a href="#">SpiHub</a>
+    </div>
+
+
+</section>
+
+
+
+<!-- HOLIDAY SECTION -->
+
+
+<section>
+
+    <div class="holiday-title">
+        <h2>Summer Holiday</h2>
+    </div>
+
+
+    <div class="gallery">
+
+
+        <div class="card">
+            <img src="img_5terre.jpg">
+            <div class="card-content">
+                <h4>5 Terre</h4>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <img src="img_monterosso.jpg">
+            <div class="card-content">
+                <h4>Monterosso</h4>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <img src="img_vernazza.jpg">
+            <div class="card-content">
+                <h4>Vernazza</h4>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <img src="img_manarola.jpg">
+            <div class="card-content">
+                <h4>Manarola</h4>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <img src="img_corniglia.jpg">
+            <div class="card-content">
+                <h4>Corniglia</h4>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <img src="img_riomaggiore.jpg">
+            <div class="card-content">
+                <h4>Riomaggiore</h4>
+            </div>
+        </div>
+
+
+    </div>
+
+</section>
+
+
 </body>
+
 </html>
