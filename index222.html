@@ -4,10 +4,9 @@
     <title>SpiHub - Coming Soon</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700&display=swap" rel="stylesheet">
-
     <style>
+        /* Reset */
         *{
             margin:0;
             padding:0;
@@ -27,6 +26,7 @@
             overflow:hidden;
         }
 
+        /* Background Overlay */
         .overlay{
             position:relative;
             width:100%;
@@ -50,24 +50,24 @@
             top:50%;
             left:50%;
             transform:translate(-50%,-50%);
-            text-align:center;
             width:90%;
             max-width:900px;
+            text-align:center;
             animation:fadeUp 1s ease;
         }
 
         .content h1{
+            margin-bottom:25px;
             font-size:70px;
             font-weight:700;
             letter-spacing:4px;
-            margin-bottom:25px;
         }
 
         .line{
             width:220px;
             height:2px;
-            background:#bdbdbd;
             margin:0 auto 25px;
+            background:#bdbdbd;
         }
 
         .countdown{
@@ -78,8 +78,8 @@
         /* Footer */
         .footer{
             position:absolute;
-            bottom:30px;
             left:30px;
+            bottom:30px;
             font-size:18px;
         }
 
@@ -93,11 +93,13 @@
             opacity:.8;
         }
 
+        /* Animation */
         @keyframes fadeUp{
             from{
                 opacity:0;
                 transform:translate(-50%,-40%);
             }
+
             to{
                 opacity:1;
                 transform:translate(-50%,-50%);
@@ -105,12 +107,11 @@
         }
 
         /* Tablet */
-        @media(max-width:768px){
-
+        @media (max-width:768px){
             .logo{
-                font-size:24px;
                 top:20px;
                 left:20px;
+                font-size:24px;
             }
 
             .content h1{
@@ -121,20 +122,22 @@
                 font-size:22px;
             }
 
+            .line{
+                width:170px;
+            }
+
             .footer{
                 left:20px;
                 bottom:20px;
                 font-size:16px;
             }
-
-            .line{
-                width:170px;
-            }
-
         }
 
         /* Mobile */
-        @media(max-width:480px){
+        @media (max-width:480px){
+            .logo{
+                font-size:20px;
+            }
 
             .content h1{
                 font-size:30px;
@@ -145,45 +148,28 @@
                 font-size:18px;
             }
 
-            .logo{
-                font-size:20px;
+            .line{
+                width:140px;
             }
 
             .footer{
                 font-size:14px;
             }
-
-            .line{
-                width:140px;
-            }
-
         }
-
     </style>
 </head>
-
 <body>
-
-<div class="overlay">
-
-    <div class="logo">
-        SpiHub
+    <div class="overlay">
+        <div class="logo">SpiHub</div>
+        <div class="content">
+            <h1>SPIRITUAL HUB</h1>
+            <div class="line"></div>
+            <p class="countdown">35 Days Left</p>
+        </div>
+        <div class="footer">
+            Powered by
+            <a href="#">SpiHub</a>
+        </div>
     </div>
-
-    <div class="content">
-        <h1>SPIRITUAL HUB</h1>
-
-        <div class="line"></div>
-
-        <p class="countdown">35 Days Left</p>
-    </div>
-
-    <div class="footer">
-        Powered by
-        <a href="#">SpiHub</a>
-    </div>
-
-</div>
-
 </body>
 </html>
