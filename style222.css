@@ -18,7 +18,7 @@
 
         .hero{
             width:100%;
-            height:100vh;
+            height:85vh;
             background:url("bg_img-1.png") center/cover no-repeat;
             position:relative;
             color:white;
@@ -239,6 +239,9 @@
            }   
         }
         @media(max-width:480px){
+            .hero{
+               height:75vh;
+            }
             .hero-content h1{
                 font-size:30px;
                 letter-spacing:2px;
