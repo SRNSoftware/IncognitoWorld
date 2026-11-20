@@ -1,1 +1,158 @@
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
 
+        html{
+            scroll-behavior:smooth;
+        }
+
+        body{
+            font-family:"Raleway",sans-serif;
+            background:#f4f4f4;
+            color:#333;
+        }
+
+        /* ================= HERO SECTION ================= */
+
+        .hero{
+            width:100%;
+            height:100vh;
+            background:url("bg_img-1.png") center/cover no-repeat;
+            position:relative;
+            color:white;
+        }
+
+        .overlay{
+            width:100%;
+            height:100%;
+            background:rgba(0,0,0,.35);
+            position:absolute;
+        }
+
+        .logo{
+            position:absolute;
+            top:30px;
+            left:30px;
+            font-size:30px;
+            font-weight:400;
+            letter-spacing:2px;
+        }
+
+        .hero-content{
+            position:absolute;
+            top:50%;
+            left:50%;
+            transform:translate(-50%,-50%);
+            text-align:center;
+            width:90%;
+        }
+
+        .hero-content h1{
+            font-size:50px;
+            letter-spacing:4px;
+            margin-bottom:25px;
+            font-weight:500;
+        }
+
+        .line{
+            width:200px;
+            height:1px;
+            background:white;
+            margin:auto;
+            margin-bottom:25px;
+        }
+
+        .countdown{
+            font-size:20px;
+        }
+
+        .footer{
+            position:absolute;
+            bottom:30px;
+            left:30px;
+            font-size:18px;
+        }
+
+        .footer a{
+            color:white;
+            text-decoration:none;
+        }
+
+
+        /* ================= HOLIDAY SECTION ================= */
+
+        .holiday-title{
+            text-align:center;
+            padding:40px 20px;
+        }
+        .holiday-title h2{
+            font-size:40px;
+            color:#009688;
+        }
+        .gallery{
+            max-width:1200px;
+            margin:auto;
+            padding:0 20px 50px;
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:30px;
+        }
+        .card{
+            background:white;
+            border-radius:10px;
+            overflow:hidden;
+            box-shadow:0 5px 15px rgba(0,0,0,.15);
+            transition:.3s;
+        }
+        .card:hover{
+            transform:translateY(-8px);
+        }
+        .card img{
+            width:100%;
+            display:block;
+        }
+        .card-content{
+            padding:20px;
+        }
+        .card-content h4{
+            font-size:22px;
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width:768px){
+            .hero-content h1{
+                font-size:42px;
+            }
+            .logo{
+                font-size:24px;
+                top:20px;
+                left:20px;
+            }
+            .gallery{
+                grid-template-columns:repeat(2,1fr);
+            }
+            .countdown{
+                font-size:22px;
+            }
+        }
+        @media(max-width:480px){
+            .hero-content h1{
+                font-size:30px;
+                letter-spacing:2px;
+            }
+            .gallery{
+                grid-template-columns:1fr;
+            }
+            .holiday-title h2{
+                font-size:30px;
+            }
+            .footer{
+                font-size:14px;
+                left:20px;
+                bottom:20px;
+            }
+        }
