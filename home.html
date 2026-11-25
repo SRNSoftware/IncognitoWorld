@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Sacred Char Dham</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f4efe6;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      padding: clamp(14px, 3vw, 36px);
+      color: #2c2219;
+    }
+
+    .dham-card {
+      display: flex;
+      align-items: center;
+      gap: clamp(20px, 4vw, 44px);
+      max-width: 1000px;
+      width: 100%;
+      background-color: #fbf9f5;
+      border: 1px solid #e6dec8;
+      border-radius: clamp(14px, 2vw, 22px);
+      padding: clamp(16px, 3vw, 28px);
+      box-shadow: 0 18px 40px rgba(44, 34, 25, 0.08);
+    }
+
+    .dham-image {
+      flex: 1 1 48%;
+      min-width: 0;
+    }
+
+    .dham-image img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      max-height: 420px;
+      object-fit: cover;
+      border-radius: clamp(10px, 1.5vw, 16px);
+      display: block;
+    }
+
+    .dham-content {
+      flex: 1 1 52%;
+      min-width: 0;
+      padding-right: 8px;
+    }
+
+    .dham-tag {
+      display: block;
+      font-size: clamp(11px, 1.2vw, 12px);
+      font-weight: 600;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: #7a6855;
+      margin-bottom: 10px;
+    }
+
+    .dham-content h1 {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      font-size: clamp(26px, 3.6vw, 40px);
+      line-height: 1.15;
+      font-weight: 700;
+      color: #2b2118;
+      margin-bottom: clamp(12px, 2vw, 20px);
+    }
+
+    .dham-content p {
+      font-size: clamp(14.5px, 1.5vw, 16px);
+      line-height: 1.7;
+      color: #4a3f35;
+      margin-bottom: clamp(18px, 2.5vw, 26px);
+    }
+
+    .dham-btn {
+      display: inline-block;
+      background-color: #6e5236;
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 14.5px;
+      font-weight: 500;
+      padding: 12px 24px;
+      border-radius: 999px;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .dham-btn:hover {
+      background-color: #563e27;
+      transform: translateY(-1px);
+    }
+
+    /* Tablet & Mobile stacking */
+    @media (max-width: 768px) {
+      .dham-card {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .dham-image,
+      .dham-content {
+        flex: 1 1 auto;
+        width: 100%;
+        padding-right: 0;
+      }
+
+      .dham-image img {
+        aspect-ratio: 16 / 10;
+        max-height: 320px;
+      }
+    }
+
+    /* Small phones */
+    @media (max-width: 420px) {
+      .dham-btn {
+        display: block;
+        text-align: center;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="dham-card">
+    <div class="dham-image">
+      <img src="your-image.jpg" alt="Spiritual traveler walking toward an ancient temple" />
+    </div>
+
+    <div class="dham-content">
+      <span class="dham-tag">Pilgrimage &amp; Reflection</span>
+      <h1>The Sacred Char Dham</h1>
+      <p>
+        Embark on a sacred journey of spiritual reflection and inner stillness.
+        United across the four corners of India by Adi Shankaracharya, Badrinath,
+        Rameswaram, Puri, and Dwarka offer a timeless path to surrender the ego,
+        purify the heart, and awaken to divine grace.
+      </p>
+      <a href="#more" class="dham-btn">Explore the Significance &rarr;</a>
+    </div>
+  </section>
+
+</body>
+</html>
