@@ -307,7 +307,24 @@
            .project-gallery,
            .team-gallery{
                grid-template-columns:repeat(2,1fr);
-           }   
+           }
+           .dham-card,
+           .dham-card:nth-child(even) {
+               flex-direction: column;
+               align-items: stretch;
+             }
+
+           .dham-image,
+           .dham-content {
+               flex: 1 1 auto;
+               width: 100%;
+               padding: 0;
+             }
+
+           .dham-image img {
+               aspect-ratio: 16 / 10;
+               max-height: 300px;
+             }
         }
         @media(max-width:480px){
             .hero{
